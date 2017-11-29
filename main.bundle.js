@@ -84,7 +84,7 @@
 
 
 	// module
-	exports.push([module.id, "table, th, td {\n  border: 1px solid black;\n  border-collapse: collapse;\n}\n", ""]);
+	exports.push([module.id, "table, th, td {\n  border: 1px solid black;\n  border-collapse: collapse;\n}\nbutton {\n  background-color: red;\n  border-radius: 75%;\n  color: white;\n  font-size: 15px;\n}\n", ""]);
 
 	// exports
 
@@ -413,7 +413,7 @@
 	      method: 'GET'
 	    }).done(function (data) {
 	      for (var i = 0; i < data.length; i++) {
-	        $('.foods-table').append('<tr><td>' + data[i].name + '</td><td>' + data[i].calories + '</td></tr>');
+	        $('.foods-table').append('<tr><td>' + data[i].name + '</td><td>' + data[i].calories + '</td><td><button>-</button></td></tr>');
 	      }
 	    }).fail(function (error) {
 	      console.error(error);
