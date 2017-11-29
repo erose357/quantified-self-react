@@ -407,7 +407,6 @@
 	var API = 'https://api-qs.herokuapp.com';
 
 	$(document).ready(function () {
-	  console.log(API);
 	  var getFoods = function getFoods() {
 	    return $.ajax({
 	      url: API + '/api/v1/foods',
