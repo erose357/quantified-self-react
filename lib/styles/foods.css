@@ -8,3 +8,9 @@ button {
   color: white;
   font-size: 15px;
 }
+
+.food-button {
+  background-color: DodgerBlue;
+  border-radius: 10px;
+  margin-left: 10%;
+}

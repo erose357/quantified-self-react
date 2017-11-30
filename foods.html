@@ -8,12 +8,19 @@
 
   <div>
     <form class="new-food-form">
-      <input type="text" name="food-name" placeholder="Please enter a food name" class="food-form"><br>
-      <input type="text" name="food-calories" placeholder="Please enter a calorie amount" class="food-form">
-      <input type="submit">
+      Name<br>
+      <input type="text" name="food-name" size="40" class="food-form" required
+      oninvalid="this.setCustomValidity('Please enter a food name')" oninput="setCustomValidity('')"><br>
+      Please enter a food name<br>
+      Calories<br>
+      <input type="text" name="food-calories" size="40" class="food-form" required
+      oninvalid="this.setCustomValidity('Please enter a calorie amount')" oninput="setCustomValidity('')"><br>
+      Please enter a calorie amount<br><br>
+      <input type="submit" value="     Add Food     " class="food-button">
     </form>
   </div>
 
+  <br>
   <br>
   <br>
 
@@ -25,6 +32,7 @@
       </tr>
     </table>
   </div>
+
   <script src="main.bundle.js"></script>
 </body>
 </html>
