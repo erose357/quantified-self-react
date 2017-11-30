@@ -8,14 +8,14 @@
 
   <div>
     <form class="new-food-form">
-      Name<br>
+      <span class="food-labels">Name</span><br>
       <input type="text" name="food-name" size="40" class="food-form" required
       oninvalid="this.setCustomValidity('Please enter a food name')" oninput="setCustomValidity('')"><br>
-      Please enter a food name<br>
-      Calories<br>
+      <span class="food-placeholders">Please enter a food name</span><br>
+      <span class="food-labels">Calories</span><br>
       <input type="text" name="food-calories" size="40" class="food-form" required
       oninvalid="this.setCustomValidity('Please enter a calorie amount')" oninput="setCustomValidity('')"><br>
-      Please enter a calorie amount<br><br>
+      <span class="food-placeholders">Please enter a calorie amount<span><br><br>
       <input type="submit" value="     Add Food     " class="food-button">
     </form>
   </div>

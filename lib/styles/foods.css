@@ -14,3 +14,12 @@ button {
   border-radius: 10px;
   margin-left: 10%;
 }
+
+.food-labels {
+
+}
+
+.food-placeholders {
+  color: red;
+  margin-left: 5%;
+}
