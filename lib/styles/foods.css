@@ -2,6 +2,7 @@ table, th, td {
   border: 1px solid black;
   border-collapse: collapse;
 }
+
 button {
   background-color: red;
   border-radius: 75%;
@@ -11,14 +12,27 @@ button {
 
 .food-button {
   background-color: DodgerBlue;
-  border-radius: 10px;
+  border-radius: 15px;
   margin-left: 10%;
+  padding: 5px;
 }
 
 .food-placeholders {
   color: red;
   margin-left: 5%;
   display: none;
+}
+
+div.food-search {
+  margin-bottom: 20px;
+}
+
+.foods-table {
+  border-right: 0px;
+  border-bottom: 0px;
+}
+.delete-button {
+  border: none;
 }
 
 .error {
