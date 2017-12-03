@@ -94,7 +94,7 @@
 
 
 	// module
-	exports.push([module.id, "table, th, td {\n  border: 1px solid black;\n  border-collapse: collapse;\n}\n\nbutton {\n  background-color: red;\n  border-radius: 75%;\n  color: white;\n  font-size: 15px;\n}\n\n.food-button {\n  background-color: DodgerBlue;\n  border-radius: 15px;\n  margin-left: 10%;\n  padding: 5px;\n}\n\n.error {\n  color: red;\n  margin-left: 5%;\n  display: none;\n}\n\ndiv.food-search {\n  margin-bottom: 20px;\n}\n\n.foods-table {\n  border-right: 0px;\n  border-bottom: 0px;\n}\n.delete-button {\n  border: none;\n}\n\n/*.error {*/\n  /*display: none;*/\n/*}*/\n", ""]);
+	exports.push([module.id, "table, th, td {\n  border: 1px solid black;\n  border-collapse: collapse;\n}\n\nbutton {\n  background-color: red;\n  border-radius: 75%;\n  color: white;\n  font-size: 15px;\n}\n\n.food-button {\n  background-color: DodgerBlue;\n  border-radius: 15px;\n  margin-left: 10%;\n  padding: 5px;\n}\n\n.error {\n  color: red;\n  margin-left: 5%;\n  display: none;\n}\n\ndiv.food-search {\n  margin-bottom: 20px;\n}\n\n.foods-table {\n  border-right: 0px;\n  border-bottom: 0px;\n}\n.delete-button {\n  border: none;\n}\n", ""]);
 
 	// exports
 
@@ -10740,7 +10740,7 @@
 
 	function appendFoods(data) {
 	  for (var i = 0; i < data.length; i++) {
-	    $('tr.headings').after('<tr class="food' + data[i].id + '">\n          <td contenteditable="true">' + data[i].name + '</td>\n          <td contenteditable="true">' + data[i].calories + '</td>\n          <td class="delete-button"><button class="delete-food ' + data[i].id + '">-</button></td>\n        </tr>');
+	    $('.headings').after('<tr class="food' + data[i].id + '">\n          <td contenteditable="true">' + data[i].name + '</td>\n          <td contenteditable="true">' + data[i].calories + '</td>\n          <td class="delete-button"><button class="delete-food ' + data[i].id + '">-</button></td>\n        </tr>');
 	  }
 	}
 
