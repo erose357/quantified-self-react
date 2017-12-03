@@ -48,10 +48,16 @@
 
 	__webpack_require__(1);
 	__webpack_require__(5);
-	__webpack_require__(8);
-	__webpack_require__(9);
 	__webpack_require__(7);
 	__webpack_require__(10);
+	__webpack_require__(11);
+	__webpack_require__(9);
+	__webpack_require__(12);
+	__webpack_require__(15);
+	__webpack_require__(13);
+	__webpack_require__(16);
+	__webpack_require__(14);
+	__webpack_require__(17);
 
 /***/ }),
 /* 1 */
@@ -88,7 +94,7 @@
 
 
 	// module
-	exports.push([module.id, "table, th, td {\n  border: 1px solid black;\n  border-collapse: collapse;\n}\nbutton {\n  background-color: red;\n  border-radius: 75%;\n  color: white;\n  font-size: 15px;\n}\n\n.food-button {\n  background-color: DodgerBlue;\n  border-radius: 10px;\n  margin-left: 10%;\n}\n\n.food-labels {\n\n}\n\n.food-placeholders {\n  color: red;\n  margin-left: 5%;\n  display: none;\n}\n", ""]);
+	exports.push([module.id, "table, th, td {\n  border: 1px solid black;\n  border-collapse: collapse;\n}\n\nbutton {\n  background-color: red;\n  border-radius: 75%;\n  color: white;\n  font-size: 15px;\n}\n\n.food-button {\n  background-color: DodgerBlue;\n  border-radius: 15px;\n  margin-left: 10%;\n  padding: 5px;\n}\n\n.error {\n  color: red;\n  margin-left: 5%;\n  display: none;\n}\n\ndiv.food-search {\n  margin-bottom: 20px;\n}\n\n.foods-table {\n  border-right: 0px;\n  border-bottom: 0px;\n}\n.delete-button {\n  border: none;\n}\n", ""]);
 
 	// exports
 
@@ -405,10 +411,50 @@
 /* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(6);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(4)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!../../node_modules/css-loader/index.js!./diary.css", function() {
+				var newContent = require("!!../../node_modules/css-loader/index.js!./diary.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(3)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "table, th, td {\n  border: 1px solid black;\n  border-collapse: collapse;\n}\n\n.diary-heading {\n  background-color: #c5c4c4;\n}\n\n.headings-diary {\n  background-color: #c5c4c4;\n}\n", ""]);
+
+	// exports
+
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
 	'use strict';
 
-	var $ = __webpack_require__(6);
-	var requests = __webpack_require__(7);
+	var $ = __webpack_require__(8);
+	var requests = __webpack_require__(9);
 	var API = 'https://api-qs.herokuapp.com';
 
 	function getFoods() {
@@ -417,10 +463,16 @@
 	  }).catch(requests.errorLog);
 	}
 
-	module.exports = { getFoods: getFoods };
+	function getFoodsDiary() {
+	  return $.get("https://api-qs.herokuapp.com/api/v1/foods").done(function (data) {
+	    requests.appendFoodsDiary(data);
+	  }).catch(requests.errorLog);
+	}
+
+	module.exports = { getFoods: getFoods, getFoodsDiary: getFoodsDiary };
 
 /***/ }),
-/* 6 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -10679,33 +10731,43 @@
 
 
 /***/ }),
-/* 7 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var $ = __webpack_require__(6);
+	var $ = __webpack_require__(8);
 
 	function appendFoods(data) {
 	  for (var i = 0; i < data.length; i++) {
-	    $('.headings').after('<tr class="food' + data[i].id + '"><td>' + data[i].name + '</td><td>' + data[i].calories + '</td><td><button class="delete-food ' + data[i].id + '">-</button></td></tr>');
+	    $('.headings').after('<tr class="food' + data[i].id + '">\n          <td contenteditable="true">' + data[i].name + '</td>\n          <td contenteditable="true">' + data[i].calories + '</td>\n          <td class="delete-button"><button class="delete-food ' + data[i].id + '">-</button></td>\n        </tr>');
 	  }
+	}
+
+	function appendFoodsDiary(data) {
+	  for (var i = 0; i < data.length; i++) {
+	    $('.headings-diary').after('<tr class="food' + data[i].id + '">\n          <td class="food-checkbox"><input type="checkbox" name="food-checkbox"></td>\n          <td>' + data[i].name + '</td>\n          <td>' + data[i].calories + '</td>\n        </tr>');
+	  }
+	}
+
+	function appendFood(data, meal) {
+	  $(meal).after('<tr class="food' + data.id + '"><td>' + data.name + '</td><td>' + data.calories + '</td><td class="delete-button"><button class="delete-food ' + data.id + '">-</button></td></tr>');
 	}
 
 	function errorLog(error) {
 	  console.error(error);
 	}
 
-	module.exports = { appendFoods: appendFoods, errorLog: errorLog };
+	module.exports = { appendFoods: appendFoods, appendFood: appendFood, appendFoodsDiary: appendFoodsDiary, errorLog: errorLog };
 
 /***/ }),
-/* 8 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var $ = __webpack_require__(6);
-	var requests = __webpack_require__(7);
+	var $ = __webpack_require__(8);
+	var requests = __webpack_require__(9);
 
 	function deleteFood() {
 	  var foodId = getId(this);
@@ -10721,55 +10783,180 @@
 	  return id.className.split(' ')[1];
 	}
 
-	module.exports = { deleteFood: deleteFood };
+	module.exports = { deleteFood: deleteFood, getId: getId };
 
 /***/ }),
-/* 9 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var $ = __webpack_require__(6);
+	var $ = __webpack_require__(8);
 	var API = 'https://api-qs.herokuapp.com';
 
 	function createNewFood() {
 	  var postName = $(".new-food-form input[name='food-name']").val();
 	  var postCalories = $(".new-food-form input[name='food-calories']").val();
-	  return $.ajax({
-	    url: API + '/api/v1/foods',
-	    method: 'POST',
-	    data: { food: { name: postName, calories: postCalories } }
-	  });
+	  if (postName.length === 0 || postCalories.length === 0) {
+	    event.preventDefault();
+	    $('.error').toggle();
+	  } else {
+	    return $.ajax({
+	      url: API + '/api/v1/foods',
+	      method: 'POST',
+	      data: { food: { name: postName, calories: postCalories } }
+	    });
+	  }
 	}
 	module.exports = { createNewFood: createNewFood };
 
 /***/ }),
-/* 10 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var $ = __webpack_require__(6);
-	var allFoods = __webpack_require__(5);
-	var createNewFood = __webpack_require__(9);
-	var deleteFood = __webpack_require__(8);
+	var $ = __webpack_require__(8);
+	var allFoods = __webpack_require__(7);
+	var createNewFood = __webpack_require__(11);
+	var deleteFood = __webpack_require__(10);
+	var filterFoods = __webpack_require__(13);
+	var saveData = __webpack_require__(14);
 
 	$(document).ready(function () {
-	  $('window').on('load', allFoods.getFoods());
-
+	  $('body.foods').on('load', allFoods.getFoods());
 	  $('.foods-table').on('click', '.delete-food', deleteFood.deleteFood);
-
-	  $('.new-food-form input[type="submit"]').on('click', function () {
-	    var postName = $('.new-food-form input[name=food-name]').val();
-	    var postCalories = $('.new-food-form input[name=food-calories').val();
-	    if (postName.length === 0 || postCalories.length === 0) {
-	      event.preventDefault();
-	      $('.food-placeholders').toggle();
-	    } else {
-	      createNewFood.createNewFood();
-	    }
-	  });
+	  $('.new-food-form input[type="submit"]').on('click', createNewFood.createNewFood);
+	  $('#foods-table').on('keyup', "td", saveData.saveData);
+	  $('#food-input').keyup(filterFoods.filterFoods);
 	});
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var $ = __webpack_require__(8);
+
+	function filterFoods() {
+	  console.log('filterFoods');
+	  var input = void 0,
+	      filter = void 0,
+	      table = void 0,
+	      tr = void 0,
+	      td = void 0,
+	      i = void 0;
+	  input = document.getElementById('food-input');
+	  filter = input.value.toUpperCase();
+	  table = document.getElementById('foods-table');
+	  tr = table.getElementsByTagName('tr');
+
+	  for (i = 0; i < tr.length; i++) {
+	    td = tr[i].getElementsByTagName('td')[0];
+	    if (td) {
+	      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+	        tr[i].style.display = '';
+	      } else {
+	        tr[i].style.display = 'none';
+	      }
+	    }
+	  }
+	}
+
+	module.exports = { filterFoods: filterFoods };
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var $ = __webpack_require__(8);
+	var requests = __webpack_require__(9);
+
+	function saveData() {
+	  var parent = this.parentNode;
+	  var foodEditId = parent.className.slice(4);
+	  var foodNameId = parent.children[0].innerHTML;
+	  var calorieId = parent.children[1].innerHTML;
+	  return $.ajax({
+	    url: 'https://api-qs.herokuapp.com/api/v1/foods/' + foodEditId,
+	    method: 'PATCH',
+	    data: { food: { name: foodNameId, calories: calorieId } }
+	  }).done(function (data) {}).catch(requests.errorLog);
+	}
+
+	module.exports = { saveData: saveData };
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var $ = __webpack_require__(8);
+	var loadSingles = __webpack_require__(16);
+	var allFoods = __webpack_require__(7);
+
+	$(document).ready(function () {
+	  $('body.diary').on('load', loadSingles.loadSingles());
+	  $('body.diary').on('load', allFoods.getFoodsDiary());
+	});
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var $ = __webpack_require__(8);
+	var getSingle = __webpack_require__(17);
+
+	function loadSingles() {
+	  loadBreakfast();
+	  loadLunch();
+	  loadDinner();
+	  loadSnack();
+	}
+
+	function loadBreakfast() {
+	  getSingle.getSingleFood(1, ".breakfast-heading");
+	  getSingle.getSingleFood(5, ".breakfast-heading");
+	}
+
+	function loadLunch() {
+	  getSingle.getSingleFood(40, ".lunch-heading");
+	  getSingle.getSingleFood(12, ".lunch-heading");
+	}
+
+	function loadDinner() {
+	  getSingle.getSingleFood(6, ".dinner-heading");
+	  getSingle.getSingleFood(7, ".dinner-heading");
+	}
+
+	function loadSnack() {
+	  getSingle.getSingleFood(2, ".snack-heading");
+	}
+
+	module.exports = { loadSingles: loadSingles };
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var $ = __webpack_require__(8);
+	var requests = __webpack_require__(9);
+
+	function getSingleFood(id, meal) {
+	  return $.get('https://api-qs.herokuapp.com/api/v1/foods/' + id).done(function (data) {
+	    requests.appendFood(data, meal);
+	  }).catch(requests.errorLog);
+	}
+
+	module.exports = { getSingleFood: getSingleFood };
 
 /***/ })
 /******/ ]);
