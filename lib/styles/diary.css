@@ -10,3 +10,15 @@ table, th, td {
 .headings-diary {
   background-color: #c5c4c4;
 }
+
+a.new-food-button {
+  background-color: DodgerBlue;
+  border: 1px solid black;
+  border-radius: 15px;
+  color: black;
+  font-size: 11px;
+  font-family: sans-serif;
+  font-weight: bold;
+  padding: 5px 20px;
+  text-decoration: none;
+}
