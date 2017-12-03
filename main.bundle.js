@@ -94,7 +94,7 @@
 
 
 	// module
-	exports.push([module.id, "table, th, td {\n  border: 1px solid black;\n  border-collapse: collapse;\n}\n\nbutton {\n  background-color: red;\n  border-radius: 75%;\n  color: white;\n  font-size: 15px;\n}\n\n.food-button {\n  background-color: DodgerBlue;\n  border-radius: 15px;\n  margin-left: 10%;\n  padding: 5px;\n}\n\n.error {\n  color: red;\n  margin-left: 5%;\n  display: none;\n}\n\ndiv.food-search {\n  margin-bottom: 20px;\n}\n\n.foods-table {\n  border-right: 0px;\n  border-bottom: 0px;\n}\n.delete-button {\n  border: none;\n}\n", ""]);
+	exports.push([module.id, "table, th, td {\n  border: 1px solid black;\n  border-collapse: collapse;\n}\n\nbutton {\n  background-color: red;\n  border-radius: 75%;\n  color: black;\n  font-size: 15px;\n}\n\n.food-button {\n  background-color: DodgerBlue;\n  border: 1px solid black;\n  border-radius: 15px;\n  color: black;\n  font-family: sans-serif;\n  font-size: 11px;\n  font-weight: bold;\n  margin-left: 10%;\n  padding: 5px 20px;\n}\n\n.error {\n  color: red;\n  margin-left: 5%;\n  display: none;\n}\n\ndiv.food-search {\n  margin-bottom: 20px;\n}\n\n.foods-table {\n  border-right: 0px;\n  border-bottom: 0px;\n}\n.delete-button {\n  border: none;\n}\n", ""]);
 
 	// exports
 
@@ -442,7 +442,7 @@
 
 
 	// module
-	exports.push([module.id, "table, th, td {\n  border: 1px solid black;\n  border-collapse: collapse;\n}\n\n.diary-heading {\n  background-color: #c5c4c4;\n}\n\n.headings-diary {\n  background-color: #c5c4c4;\n}\n", ""]);
+	exports.push([module.id, "table, th, td {\n  border: 1px solid black;\n  border-collapse: collapse;\n}\n\nh3 {\n  margin: 10px 0;\n}\n.diary-heading {\n  background-color: #c5c4c4;\n}\n\n.headings-diary {\n  background-color: #c5c4c4;\n}\n\na.new-food-button {\n  background-color: DodgerBlue;\n  border: 1px solid black;\n  border-radius: 15px;\n  color: black;\n  display: inline-block;\n  font-size: 11px;\n  font-family: sans-serif;\n  font-weight: bold;\n  margin-bottom: 10px;\n  padding: 5px 20px;\n  text-decoration: none;\n}\n\n.diary-food-search {\n  margin: 20px;\n}\n", ""]);
 
 	// exports
 
@@ -10840,7 +10840,6 @@
 	var $ = __webpack_require__(8);
 
 	function filterFoods() {
-	  console.log('filterFoods');
 	  var input = void 0,
 	      filter = void 0,
 	      table = void 0,
@@ -10864,7 +10863,31 @@
 	  }
 	}
 
-	module.exports = { filterFoods: filterFoods };
+	function filterDiaryFoods() {
+	  var input = void 0,
+	      filter = void 0,
+	      table = void 0,
+	      tr = void 0,
+	      td = void 0,
+	      i = void 0;
+	  input = document.getElementById('diary-food-input');
+	  filter = input.value.toUpperCase();
+	  table = document.getElementById('diary-foods-table');
+	  tr = table.getElementsByTagName('tr');
+
+	  for (i = 0; i < tr.length; i++) {
+	    td = tr[i].getElementsByTagName('td')[1];
+	    if (td) {
+	      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+	        tr[i].style.display = '';
+	      } else {
+	        tr[i].style.display = 'none';
+	      }
+	    }
+	  }
+	}
+
+	module.exports = { filterFoods: filterFoods, filterDiaryFoods: filterDiaryFoods };
 
 /***/ }),
 /* 14 */
@@ -10898,10 +10921,12 @@
 	var $ = __webpack_require__(8);
 	var loadSingles = __webpack_require__(16);
 	var allFoods = __webpack_require__(7);
+	var filterFoods = __webpack_require__(13);
 
 	$(document).ready(function () {
 	  $('body.diary').on('load', loadSingles.loadSingles());
 	  $('body.diary').on('load', allFoods.getFoodsDiary());
+	  $('#diary-food-input').keyup(filterFoods.filterDiaryFoods);
 	});
 
 /***/ }),
