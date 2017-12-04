@@ -56,6 +56,7 @@
 	__webpack_require__(15);
 	__webpack_require__(13);
 	__webpack_require__(16);
+	__webpack_require__(18);
 	__webpack_require__(14);
 	__webpack_require__(17);
 
@@ -10751,7 +10752,7 @@
 	}
 
 	function appendFood(data, meal) {
-	  $(meal).after('<tr class="food' + data.id + '"><td>' + data.name + '</td><td>' + data.calories + '</td><td class="delete-button"><button class="delete-food ' + data.id + '">-</button></td></tr>');
+	  $(meal).after('<tr class="food' + data.id + ' foodLoad"><td>' + data.name + '</td><td class="countCalories">' + data.calories + '</td><td class="delete-button"><button class="delete-food ' + data.id + '">-</button></td></tr>');
 	}
 
 	function errorLog(error) {
@@ -10921,12 +10922,11 @@
 	var $ = __webpack_require__(8);
 	var loadSingles = __webpack_require__(16);
 	var allFoods = __webpack_require__(7);
-	var filterFoods = __webpack_require__(13);
+	var calories = __webpack_require__(18);
 
 	$(document).ready(function () {
 	  $('body.diary').on('load', loadSingles.loadSingles());
 	  $('body.diary').on('load', allFoods.getFoodsDiary());
-	  $('#diary-food-input').keyup(filterFoods.filterDiaryFoods);
 	});
 
 /***/ }),
@@ -10937,12 +10937,14 @@
 
 	var $ = __webpack_require__(8);
 	var getSingle = __webpack_require__(17);
+	var calories = __webpack_require__(18);
 
 	function loadSingles() {
 	  loadBreakfast();
 	  loadLunch();
 	  loadDinner();
 	  loadSnack();
+	  setTimeout(calories.totalCalories, 1000);
 	}
 
 	function loadBreakfast() {
@@ -10951,7 +10953,7 @@
 	}
 
 	function loadLunch() {
-	  getSingle.getSingleFood(40, ".lunch-heading");
+	  getSingle.getSingleFood(3, ".lunch-heading");
 	  getSingle.getSingleFood(12, ".lunch-heading");
 	}
 
@@ -10982,6 +10984,44 @@
 	}
 
 	module.exports = { getSingleFood: getSingleFood };
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var $ = __webpack_require__(8);
+
+	function totalCalories() {
+	  totalCalorieCount('breakfast-table', 'breakfastTotalCal');
+	  totalCalorieCount('lunch-table', 'lunchTotalCal');
+	  totalCalorieCount('dinner-table', 'dinnerTotalCal');
+	  totalCalorieCount('snack-table', 'snackTotalCal');
+	}
+
+	function totalCalorieCount(tableId, calorieTotalId) {
+	  var diaryTable = document.getElementById(tableId);
+	  var x = diaryTable.getElementsByClassName('countCalories');
+	  var calorieValues = [];
+
+	  for (var i = 0; i < x.length; i++) {
+	    var temp = x[i].innerHTML;
+	    calorieValues.push(Number(temp));
+	  }
+
+	  myFunction(calorieValues, calorieTotalId);
+	}
+
+	function getSum(total, num) {
+	  return total + num;
+	}
+
+	function myFunction(item, id) {
+	  document.getElementById(id).innerHTML = item.reduce(getSum);
+	}
+
+	module.exports = { totalCalories: totalCalories };
 
 /***/ })
 /******/ ]);
