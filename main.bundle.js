@@ -10759,7 +10759,11 @@
 	  console.error(error);
 	}
 
-	module.exports = { appendFoods: appendFoods, appendFood: appendFood, appendFoodsDiary: appendFoodsDiary, errorLog: errorLog };
+	function removeFood(foodId) {
+	  $('.food' + foodId).remove();
+	}
+
+	module.exports = { appendFoods: appendFoods, appendFood: appendFood, appendFoodsDiary: appendFoodsDiary, errorLog: errorLog, removeFood: removeFood };
 
 /***/ }),
 /* 10 */
@@ -10776,7 +10780,7 @@
 	    url: 'https://api-qs.herokuapp.com/api/v1/foods/' + foodId,
 	    method: 'DELETE'
 	  }).then(function () {
-	    $('.food' + foodId).remove();
+	    requests.removeFood(foodId);
 	  }).catch(requests.errorLog);
 	}
 
@@ -10923,10 +10927,12 @@
 	var loadSingles = __webpack_require__(16);
 	var allFoods = __webpack_require__(7);
 	var calories = __webpack_require__(18);
+	var filterFoods = __webpack_require__(13);
 
 	$(document).ready(function () {
 	  $('body.diary').on('load', loadSingles.loadSingles());
 	  $('body.diary').on('load', allFoods.getFoodsDiary());
+	  $('#diary-food-input').keyup(filterFoods.filterDiaryFoods);
 	});
 
 /***/ }),
@@ -10945,6 +10951,7 @@
 	  loadDinner();
 	  loadSnack();
 	  setTimeout(calories.totalCalories, 1000);
+	  setTimeout(calories.remainingCalories, 1100);
 	}
 
 	function loadBreakfast() {
@@ -10963,7 +10970,7 @@
 	}
 
 	function loadSnack() {
-	  getSingle.getSingleFood(2, ".snack-heading");
+	  getSingle.getSingleFood(4, ".snack-heading");
 	}
 
 	module.exports = { loadSingles: loadSingles };
@@ -11000,6 +11007,24 @@
 	  totalCalorieCount('snack-table', 'snackTotalCal');
 	}
 
+	function remainingCalories() {
+	  remainingCalorieCount('#breakfastRemainingCal', '#breakfastTotalCal', 400);
+	  remainingCalorieCount('#lunchRemainingCal', '#lunchTotalCal', 600);
+	  remainingCalorieCount('#dinnerRemainingCal', '#dinnerTotalCal', 800);
+	  remainingCalorieCount('#snackRemainingCal', '#snackTotalCal', 200);
+	}
+
+	function remainingCalorieCount(remaining, total, cals) {
+	  var calsUsed = Number($(total)[0].innerHTML);
+	  var newRemaining = cals - calsUsed;
+	  $(remaining)[0].innerHTML = newRemaining;
+	  if (newRemaining < 0) {
+	    $(remaining).css("color", "red");
+	  } else {
+	    $(remaining).css("color", "green");
+	  }
+	}
+
 	function totalCalorieCount(tableId, calorieTotalId) {
 	  var diaryTable = document.getElementById(tableId);
 	  var x = diaryTable.getElementsByClassName('countCalories');
@@ -11021,7 +11046,7 @@
 	  document.getElementById(id).innerHTML = item.reduce(getSum);
 	}
 
-	module.exports = { totalCalories: totalCalories };
+	module.exports = { totalCalories: totalCalories, remainingCalories: remainingCalories };
 
 /***/ })
 /******/ ]);
