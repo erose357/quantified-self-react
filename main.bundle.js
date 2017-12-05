@@ -10747,19 +10747,23 @@
 
 	function appendFoodsDiary(data) {
 	  for (var i = 0; i < data.length; i++) {
-	    $('.headings-diary').after('<tr class="food' + data[i].id + '">\n          <td class="food-checkbox"><input type="checkbox" name="food-checkbox"></td>\n          <td>' + data[i].name + '</td>\n          <td>' + data[i].calories + '</td>\n        </tr>');
+	    $('.headings-diary').after('<tr class="food ' + data[i].id + '">\n          <td class="food-checkbox"><input type="checkbox" name="food-checkbox"></td>\n          <td>' + data[i].name + '</td>\n          <td>' + data[i].calories + '</td>\n        </tr>');
 	  }
 	}
 
 	function appendFood(data, meal) {
-	  $(meal).after('<tr class="food' + data.id + ' foodLoad"><td>' + data.name + '</td><td class="countCalories">' + data.calories + '</td><td class="delete-button"><button class="delete-food ' + data.id + '">-</button></td></tr>');
+	  $(meal).after('<tr class="food' + data.id + ' foodLoad">\n        <td>' + data.name + '</td>\n        <td class="countCalories">' + data.calories + '</td>\n        <td class="delete-button"><button class="delete-food ' + data.id + '">-</button></td>\n      </tr>');
 	}
 
 	function errorLog(error) {
 	  console.error(error);
 	}
 
-	module.exports = { appendFoods: appendFoods, appendFood: appendFood, appendFoodsDiary: appendFoodsDiary, errorLog: errorLog };
+	function removeFood(foodId) {
+	  $('.food' + foodId).remove();
+	}
+
+	module.exports = { appendFoods: appendFoods, appendFood: appendFood, appendFoodsDiary: appendFoodsDiary, errorLog: errorLog, removeFood: removeFood };
 
 /***/ }),
 /* 10 */
@@ -10776,7 +10780,7 @@
 	    url: 'https://api-qs.herokuapp.com/api/v1/foods/' + foodId,
 	    method: 'DELETE'
 	  }).then(function () {
-	    $('.food' + foodId).remove();
+	    requests.removeFood(foodId);
 	  }).catch(requests.errorLog);
 	}
 
@@ -10923,10 +10927,17 @@
 	var loadSingles = __webpack_require__(16);
 	var allFoods = __webpack_require__(7);
 	var calories = __webpack_require__(18);
+	var filterFoods = __webpack_require__(13);
+	var addToMeal = __webpack_require__(19);
 
 	$(document).ready(function () {
 	  $('body.diary').on('load', loadSingles.loadSingles());
 	  $('body.diary').on('load', allFoods.getFoodsDiary());
+	  $('#diary-food-input').keyup(filterFoods.filterDiaryFoods);
+	  $('button.breakfast').on('click', addToMeal.addToMeal);
+	  $('button.lunch').on('click', addToMeal.addToMeal);
+	  $('button.dinner').on('click', addToMeal.addToMeal);
+	  $('button.snack').on('click', addToMeal.addToMeal);
 	});
 
 /***/ }),
@@ -11022,6 +11033,53 @@
 	}
 
 	module.exports = { totalCalories: totalCalories };
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var $ = __webpack_require__(8);
+	var responses = __webpack_require__(10);
+	var single = __webpack_require__(17);
+
+	function addToMeal() {
+	  var i = void 0,
+	      currentRow = void 0,
+	      verify = void 0;
+	  var target = event.currentTarget;
+	  var meal = responses.getId(target);
+	  var table = document.getElementById('diary-foods-table');
+	  var tr = table.getElementsByTagName('tr');
+	  var checked = [];
+
+	  for (i = 0; i < tr.length; i++) {
+	    currentRow = tr[i];
+	    if (currentRow.className === 'headings-diary') {
+	      continue;
+	    } else {
+	      verify = $('.' + responses.getId(currentRow) + ' input:checkbox')[0].checked;
+	      if (verify === true) {
+	        checked.push(responses.getId(currentRow));
+	      }
+	    }
+	  }
+	  mealItems(checked, meal);
+	}
+
+	function formatTableClass(meal) {
+	  return '.' + meal + '-heading';
+	}
+
+	function mealItems(foodIds, meal) {
+	  foodIds.forEach(function (foodId) {
+	    var heading = formatTableClass(meal);
+	    single.getSingleFood(foodId, heading);
+	  });
+	}
+
+	module.exports = { addToMeal: addToMeal };
 
 /***/ })
 /******/ ]);
