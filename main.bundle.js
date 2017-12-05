@@ -58,7 +58,7 @@
 	__webpack_require__(20);
 	__webpack_require__(16);
 	__webpack_require__(14);
-	__webpack_require__(18);
+	__webpack_require__(21);
 	__webpack_require__(17);
 	__webpack_require__(19);
 
@@ -10749,7 +10749,7 @@
 
 	function appendFoodsDiary(data) {
 	  for (var i = 0; i < data.length; i++) {
-	    $('.headings-diary').after('<tr class="food ' + data[i].id + '">\n          <td class="food-checkbox"><input type="checkbox" name="food-checkbox"></td>\n          <td>' + data[i].name + '</td>\n          <td>' + data[i].calories + '</td>\n        </tr>');
+	    $('.headings-diary').after('<tr class="food ' + data[i].id + '">\n          <td class="food-checkbox"><input class="' + data[i].id + '" type="checkbox" name="food-checkbox"></td>\n          <td>' + data[i].name + '</td>\n          <td>' + data[i].calories + '</td>\n        </tr>');
 	  }
 	}
 
@@ -11008,41 +11008,40 @@
 
 	var $ = __webpack_require__(8);
 	var responses = __webpack_require__(10);
-	var single = __webpack_require__(18);
+	var postItem = __webpack_require__(18);
 
 	function addToMeal() {
-	  var i = void 0,
-	      currentRow = void 0,
-	      verify = void 0;
-	  var target = event.currentTarget;
-	  var meal = responses.getId(target);
-	  var table = document.getElementById('diary-foods-table');
-	  var tr = table.getElementsByTagName('tr');
-	  var checked = [];
+	  var mealId = getMealId(responses.getId(event.currentTarget));
+	  var checked = $(':checked').get();
 
-	  for (i = 0; i < tr.length; i++) {
-	    currentRow = tr[i];
-	    if (currentRow.className === 'headings-diary') {
-	      continue;
-	    } else {
-	      verify = $('.' + responses.getId(currentRow) + ' input:checkbox')[0].checked;
-	      if (verify === true) {
-	        checked.push(responses.getId(currentRow));
-	      }
-	    }
-	  }
-	  mealItems(checked, meal);
-	}
-
-	function formatTableClass(meal) {
-	  return '.' + meal + '-heading';
-	}
-
-	function mealItems(foodIds, meal) {
-	  foodIds.forEach(function (foodId) {
-	    var heading = formatTableClass(meal);
-	    single.getSingleFood(foodId, heading);
+	  checked.forEach(function (item) {
+	    var itemId = item.className;
+	    postItem.postMealItems(itemId, mealId);
 	  });
+	  uncheck(checked);
+	}
+
+	function uncheck(elements) {
+	  elements.forEach(function (elem) {
+	    $('input.' + elem.className).prop('checked', false);
+	  });
+	}
+
+	function getMealId(meal) {
+	  switch (meal) {
+	    case 'breakfast':
+	      return 1;
+	      break;
+	    case 'snack':
+	      return 2;
+	      break;
+	    case 'lunch':
+	      return 3;
+	      break;
+	    case 'dinner':
+	      return 4;
+	      break;
+	  }
 	}
 
 	module.exports = { addToMeal: addToMeal };
@@ -11056,13 +11055,14 @@
 	var $ = __webpack_require__(8);
 	var requests = __webpack_require__(9);
 
-	function getSingleFood(id, meal) {
-	  return $.get('https://api-qs.herokuapp.com/api/v1/foods/' + id).done(function (data) {
-	    requests.appendFood(data, meal);
+	function postMealItems(itemId, meal) {
+	  return $.ajax({
+	    url: 'https://api-qs.herokuapp.com/api/v1/meals/' + meal + '/foods/' + itemId,
+	    method: 'POST'
 	  }).catch(requests.errorLog);
 	}
 
-	module.exports = { getSingleFood: getSingleFood };
+	module.exports = { postMealItems: postMealItems };
 
 /***/ }),
 /* 19 */
@@ -11127,6 +11127,23 @@
 	}
 
 	module.exports = { loadTotals: loadTotals };
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var $ = __webpack_require__(8);
+	var requests = __webpack_require__(9);
+
+	function getSingleFood(id, meal) {
+	  return $.get('https://api-qs.herokuapp.com/api/v1/foods/' + id).done(function (data) {
+	    requests.appendFood(data, meal);
+	  }).catch(requests.errorLog);
+	}
+
+	module.exports = { getSingleFood: getSingleFood };
 
 /***/ })
 /******/ ]);
