@@ -55,12 +55,12 @@
 	__webpack_require__(12);
 	__webpack_require__(15);
 	__webpack_require__(13);
-	__webpack_require__(20);
+	__webpack_require__(19);
 	__webpack_require__(16);
 	__webpack_require__(14);
 	__webpack_require__(22);
 	__webpack_require__(17);
-	__webpack_require__(19);
+	__webpack_require__(20);
 	__webpack_require__(21);
 
 /***/ }),
@@ -10933,7 +10933,7 @@
 	var calories = __webpack_require__(16);
 	var filterFoods = __webpack_require__(13);
 	var addToMeal = __webpack_require__(17);
-	var getMeals = __webpack_require__(19);
+	var getMeals = __webpack_require__(20);
 	var filterCalories = __webpack_require__(21);
 
 	$.fn.clicktoggle = function (a, b, c) {
@@ -11029,6 +11029,8 @@
 	var $ = __webpack_require__(8);
 	var responses = __webpack_require__(10);
 	var postItem = __webpack_require__(18);
+	var calories = __webpack_require__(16);
+	var totals = __webpack_require__(19);
 
 	function addToMeal() {
 	  var mealId = getMealId(responses.getId(event.currentTarget));
@@ -11039,6 +11041,9 @@
 	    postItem.postMealItems(itemId, mealId);
 	  });
 	  uncheck(checked);
+	  calories.totalCalories();
+	  calories.remainingCalories();
+	  totals.loadTotals();
 	}
 
 	function uncheck(elements) {
@@ -11091,27 +11096,6 @@
 	'use strict';
 
 	var $ = __webpack_require__(8);
-	var requests = __webpack_require__(9);
-	var calories = __webpack_require__(16);
-	var totals = __webpack_require__(20);
-
-	function loadMeals() {
-	  return $.get("https://api-qs.herokuapp.com/api/v1/meals").done(function (data) {
-	    data.forEach(function (mealObject) {
-	      return requests.appendFood(mealObject);
-	    });
-	  }).then(calories.totalCalories).then(calories.remainingCalories).then(totals.loadTotals).catch(requests.errorLog);
-	}
-
-	module.exports = { loadMeals: loadMeals };
-
-/***/ }),
-/* 20 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var $ = __webpack_require__(8);
 
 	function loadTotals() {
 	  var x = document.getElementsByClassName('totalCals');
@@ -11147,6 +11131,27 @@
 	}
 
 	module.exports = { loadTotals: loadTotals };
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var $ = __webpack_require__(8);
+	var requests = __webpack_require__(9);
+	var calories = __webpack_require__(16);
+	var totals = __webpack_require__(19);
+
+	function loadMeals() {
+	  return $.get("https://api-qs.herokuapp.com/api/v1/meals").done(function (data) {
+	    data.forEach(function (mealObject) {
+	      return requests.appendFood(mealObject);
+	    });
+	  }).then(calories.totalCalories).then(calories.remainingCalories).then(totals.loadTotals).catch(requests.errorLog);
+	}
+
+	module.exports = { loadMeals: loadMeals };
 
 /***/ }),
 /* 21 */
