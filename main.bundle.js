@@ -10973,17 +10973,17 @@
 	var $ = __webpack_require__(8);
 
 	function totalCalories() {
-	  totalCalorieCount('breakfast-table', 'breakfastTotalCal');
-	  totalCalorieCount('lunch-table', 'lunchTotalCal');
-	  totalCalorieCount('dinner-table', 'dinnerTotalCal');
-	  totalCalorieCount('snack-table', 'snackTotalCal');
+	  totalCalorieCount('breakfast-table', 'breakfast-total-cal');
+	  totalCalorieCount('lunch-table', 'lunch-total-cal');
+	  totalCalorieCount('dinner-table', 'dinner-total-cal');
+	  totalCalorieCount('snack-table', 'snack-total-cal');
 	}
 
 	function remainingCalories() {
-	  remainingCalorieCount('#breakfastRemainingCal', '#breakfastTotalCal', 400);
-	  remainingCalorieCount('#lunchRemainingCal', '#lunchTotalCal', 600);
-	  remainingCalorieCount('#dinnerRemainingCal', '#dinnerTotalCal', 800);
-	  remainingCalorieCount('#snackRemainingCal', '#snackTotalCal', 200);
+	  remainingCalorieCount('#breakfast-remaining-cal', '#breakfast-total-cal', 400);
+	  remainingCalorieCount('#lunch-remaining-cal', '#lunch-total-cal', 600);
+	  remainingCalorieCount('#dinner-remaining-cal', '#dinner-total-cal', 800);
+	  remainingCalorieCount('#snack-remaining-cal', '#snack-total-cal', 200);
 	}
 
 	function remainingCalorieCount(remaining, total, cals) {
@@ -11098,9 +11098,9 @@
 	var $ = __webpack_require__(8);
 
 	function loadTotals() {
-	  var x = document.getElementsByClassName('totalCals');
+	  var x = document.getElementsByClassName('total-cals');
 	  var calorieValues = [];
-	  var calorieTotalId = "totalsTotalCal";
+	  var calorieTotalId = "totals-total-cal";
 
 	  for (var i = 0; i < x.length; i++) {
 	    var temp = x[i].innerHTML;
@@ -11120,13 +11120,13 @@
 	}
 
 	function remainingCals() {
-	  var totalCal = document.getElementById('totalsTotalCal').innerHTML;
+	  var totalCal = document.getElementById('totals-total-cal').innerHTML;
 	  var remainingCal = 2000 - totalCal;
-	  document.getElementById('totalsRemainingCal').innerHTML = remainingCal;
+	  document.getElementById('totals-remaining-cal').innerHTML = remainingCal;
 	  if (remainingCal < 0) {
-	    $('th#totalsRemainingCal').css("color", "red");
+	    $('th#totals-remaining-cal').css("color", "red");
 	  } else {
-	    $('th#totalsRemainingCal').css("color", "green");
+	    $('th#totals-remaining-cal').css("color", "green");
 	  }
 	}
 
