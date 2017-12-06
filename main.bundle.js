@@ -11152,9 +11152,10 @@
 /* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	var $ = __webpack_require__(8);
+	var allFoods = __webpack_require__(7);
 
 	function ascending() {
 	  var table = void 0,
@@ -11219,7 +11220,8 @@
 	}
 
 	function original() {
-	  console.log('this is func c');
+	  $('.food').remove();
+	  allFoods.getFoodsDiary();
 	}
 
 	module.exports = { ascending: ascending, descending: descending, original: original };
