@@ -58,9 +58,10 @@
 	__webpack_require__(20);
 	__webpack_require__(16);
 	__webpack_require__(14);
-	__webpack_require__(21);
+	__webpack_require__(22);
 	__webpack_require__(17);
 	__webpack_require__(19);
+	__webpack_require__(21);
 
 /***/ }),
 /* 1 */
@@ -10933,15 +10934,34 @@
 	var filterFoods = __webpack_require__(13);
 	var addToMeal = __webpack_require__(17);
 	var getMeals = __webpack_require__(19);
+	var filterCalories = __webpack_require__(21);
+
+	$.fn.clicktoggle = function (a, b, c) {
+	    return this.each(function () {
+	        var clicked = 0;
+	        $(this).click(function () {
+	            if (clicked === 1) {
+	                clicked = 2;
+	                return b.apply(this, arguments);
+	            } else if (clicked === 2) {
+	                clicked = 0;
+	                return c.apply(this, arguments);
+	            }
+	            clicked = 1;
+	            return a.apply(this, arguments);
+	        });
+	    });
+	};
 
 	$(document).ready(function () {
-	  $('body.diary').on('load', getMeals.loadMeals());
-	  $('body.diary').on('load', allFoods.getFoodsDiary());
-	  $('#diary-food-input').keyup(filterFoods.filterDiaryFoods);
-	  $('button.breakfast').on('click', addToMeal.addToMeal);
-	  $('button.lunch').on('click', addToMeal.addToMeal);
-	  $('button.dinner').on('click', addToMeal.addToMeal);
-	  $('button.snack').on('click', addToMeal.addToMeal);
+	    $('body.diary').on('load', getMeals.loadMeals());
+	    $('body.diary').on('load', allFoods.getFoodsDiary());
+	    $('#diary-food-input').keyup(filterFoods.filterDiaryFoods);
+	    $('button.breakfast').on('click', addToMeal.addToMeal);
+	    $('button.lunch').on('click', addToMeal.addToMeal);
+	    $('button.dinner').on('click', addToMeal.addToMeal);
+	    $('button.snack').on('click', addToMeal.addToMeal);
+	    $("#calorie-filter").clicktoggle(filterCalories.ascending, filterCalories.descending, filterCalories.original);
 	});
 
 /***/ }),
@@ -11130,6 +11150,82 @@
 
 /***/ }),
 /* 21 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var $ = __webpack_require__(8);
+
+	function ascending() {
+	  var table = void 0,
+	      rows = void 0,
+	      switching = void 0,
+	      i = void 0,
+	      x = void 0,
+	      y = void 0,
+	      shouldSwitch = void 0;
+	  table = document.getElementById("diary-foods-table");
+	  switching = true;
+
+	  while (switching) {
+	    switching = false;
+	    rows = table.getElementsByTagName("TR");
+
+	    for (i = 1; i < rows.length - 1; i++) {
+	      shouldSwitch = false;
+	      x = rows[i].getElementsByTagName("TD")[2];
+	      y = rows[i + 1].getElementsByTagName("TD")[2];
+	      if (Number(x.innerHTML) > Number(y.innerHTML)) {
+	        shouldSwitch = true;
+	        break;
+	      }
+	    }
+	    if (shouldSwitch) {
+	      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+	      switching = true;
+	    }
+	  }
+	}
+
+	function descending() {
+	  var table = void 0,
+	      rows = void 0,
+	      switching = void 0,
+	      i = void 0,
+	      x = void 0,
+	      y = void 0,
+	      shouldSwitch = void 0;
+	  table = document.getElementById("diary-foods-table");
+	  switching = true;
+
+	  while (switching) {
+	    switching = false;
+	    rows = table.getElementsByTagName("TR");
+
+	    for (i = 1; i < rows.length - 1; i++) {
+	      shouldSwitch = false;
+	      x = rows[i].getElementsByTagName("TD")[2];
+	      y = rows[i + 1].getElementsByTagName("TD")[2];
+	      if (Number(x.innerHTML) < Number(y.innerHTML)) {
+	        shouldSwitch = true;
+	        break;
+	      }
+	    }
+	    if (shouldSwitch) {
+	      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+	      switching = true;
+	    }
+	  }
+	}
+
+	function original() {
+	  console.log('this is func c');
+	}
+
+	module.exports = { ascending: ascending, descending: descending, original: original };
+
+/***/ }),
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
