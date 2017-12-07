@@ -11046,19 +11046,22 @@
 	var postItem = __webpack_require__(18);
 	var calories = __webpack_require__(16);
 	var totals = __webpack_require__(19);
+	var getMeals = __webpack_require__(20);
 
 	function addToMeal() {
+	  var meal = responses.getId(event.currentTarget);
 	  var mealId = getMealId(responses.getId(event.currentTarget));
 	  var checked = $(':checked').get();
+	  postChecked(checked, mealId);
+	  uncheck(checked);
+	  getMeals.loadMeal(mealId);
+	}
 
+	function postChecked(checked, mealId) {
 	  checked.forEach(function (item) {
 	    var itemId = item.className;
 	    postItem.postMealItems(itemId, mealId);
 	  });
-	  uncheck(checked);
-	  calories.totalCalories();
-	  calories.remainingCalories();
-	  totals.loadTotals();
 	}
 
 	function uncheck(elements) {
@@ -11166,7 +11169,30 @@
 	  }).then(calories.totalCalories).then(calories.remainingCalories).then(totals.loadTotals).catch(requests.errorLog);
 	}
 
-	module.exports = { loadMeals: loadMeals };
+	function loadMeal(mealId) {
+	  return $.get('https://api-qs.herokuapp.com/api/v1/meals/' + mealId + '/foods').done(function (data) {
+	    var table = document.getElementById(data.name.toLowerCase() + '-table');
+	    removeMealRows(table);
+	    return data;
+	  }).then(function (data) {
+	    requests.appendFood(data);
+	  }).then(function () {
+	    calories.totalCalories();
+	  }).then(function () {
+	    calories.remainingCalories();
+	  }).then(function () {
+	    totals.loadTotals();
+	  }).catch(requests.errorLog);
+	}
+
+	function removeMealRows(table) {
+	  var rows = table.getElementsByClassName('foodLoad');
+	  while (rows.length > 0) {
+	    rows[0].parentNode.removeChild(rows[0]);
+	  }
+	}
+
+	module.exports = { loadMeals: loadMeals, loadMeal: loadMeal };
 
 /***/ }),
 /* 21 */
@@ -11237,8 +11263,7 @@
 	'use strict';
 
 	var $ = __webpack_require__(8);
-
-	var requests = __webpack_require__(9);
+	var requests = __webpack_require__(7);
 	var totals = __webpack_require__(19);
 	var calories = __webpack_require__(16);
 
@@ -11335,20 +11360,23 @@
 
 /***/ }),
 /* 24 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-	'use strict';
+	//IT DOESN'T LOOK LIKE THIS FUNCTION IS BEING USED ANYWHERE, CONSIDERING DELETING IT
 
-	var $ = __webpack_require__(8);
-	var requests = __webpack_require__(7);
+	//const requests = require('../ajax-responses/foodResponses')
 
-	function getSingleFood(id, meal) {
-	  return $.get('https://api-qs.herokuapp.com/api/v1/foods/' + id).done(function (data) {
-	    requests.appendFood(data, meal);
-	  }).catch(requests.errorLog);
-	}
+	//function getSingleFood(id, meal) {
+	//return $.get(`https://api-qs.herokuapp.com/api/v1/foods/${id}`)
+	//.done(function(data) {
+	//debugger
+	//requests.appendFood(data, meal)
+	//})
+	//.catch(requests.errorLog)
+	//}
 
-	module.exports = { getSingleFood: getSingleFood };
+	//module.exports = {getSingleFood}
+	"use strict";
 
 /***/ }),
 /* 25 */
