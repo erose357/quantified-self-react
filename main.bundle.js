@@ -11258,11 +11258,11 @@
 	  }).then(function (ids) {
 	    var meal = findTable(ids.mealId);
 	    var tableId = meal + '-table';
-	    var td = meal + 'TotalCal';
+	    var td = meal + '-total-cal';
 	    calories.totalCalorieCount(tableId, td);
 	    return { meal: meal, tableId: tableId, td: td };
 	  }).then(function (ids) {
-	    var remaining = '#' + ids.meal + 'RemainingCal';
+	    var remaining = '#' + ids.meal + '-remaining-cal';
 	    var total = '#' + ids.td;
 	    var cals = findCals(ids.meal);
 	    calories.remainingCalorieCount(remaining, total, cals);
