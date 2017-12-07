@@ -98,7 +98,7 @@
 
 
 	// module
-	exports.push([module.id, "table, th, td {\n  border: 1px solid black;\n  border-collapse: collapse;\n}\n\nbutton {\n  background-color: red;\n  border-radius: 75%;\n  color: black;\n  font-size: 15px;\n}\n\n.food-button {\n  background-color: DodgerBlue;\n  border: 1px solid black;\n  border-radius: 15px;\n  color: black;\n  font-family: sans-serif;\n  font-size: 11px;\n  font-weight: bold;\n  margin-left: 10%;\n  padding: 5px 20px;\n}\n\n.error {\n  color: red;\n  margin-left: 5%;\n  display: none;\n}\n\ndiv.food-search {\n  margin-bottom: 20px;\n}\n\n.foods-table {\n  border-right: 0px;\n  border-bottom: 0px;\n}\n.delete-button {\n  border: none;\n}\n", ""]);
+	exports.push([module.id, "table, th, td {\n  border: 1px solid black;\n  border-collapse: collapse;\n}\n\nbutton {\n  background-color: red;\n  border-radius: 75%;\n  color: black;\n  font-size: 15px;\n}\n\n.food-button {\n  background-color: DodgerBlue;\n  border: 1px solid black;\n  border-radius: 15px;\n  color: black;\n  font-family: sans-serif;\n  font-size: 11px;\n  font-weight: bold;\n  margin-left: 10%;\n  padding: 5px 20px;\n}\n\n.error {\n  color: red;\n  margin-left: 5%;\n  display: none;\n}\n\ndiv.food-search {\n  margin-bottom: 20px;\n}\n\n.foods-table {\n  border-right: 0px;\n  border-bottom: 0px;\n}\n.delete-button {\n  border: none;\n}\n\n#msg1 {\n  display: none;\n}\n\n#msg2 {\n  display: none;\n}\n", ""]);
 
 	// exports
 
@@ -10807,14 +10807,20 @@
 	function createNewFood() {
 	  var postName = $(".new-food-form input[name='food-name']").val();
 	  var postCalories = $(".new-food-form input[name='food-calories']").val();
-	  if (postName.length === 0 || postCalories.length === 0) {
+	  if (postName.length === 0) {
 	    event.preventDefault();
-	    $('.error').toggle();
+	    $('#msg1').css("display", "block");
+	  } else if (postCalories.length === 0) {
+	    event.preventDefault();
+	    $('#msg2').css("display", "block");
 	  } else {
 	    return $.ajax({
 	      url: API + '/api/v1/foods',
 	      method: 'POST',
 	      data: { food: { name: postName, calories: postCalories } }
+	    }).then(function () {
+	      $('#msg1').css("display", "none");
+	      $('#msg2').css("display", "none");
 	    });
 	  }
 	}
@@ -11167,7 +11173,7 @@
 	var $ = __webpack_require__(8);
 	var allFoods = __webpack_require__(7);
 
-	function ascending() {
+	function sortCalories(sortOrder) {
 	  var table = void 0,
 	      rows = void 0,
 	      switching = void 0,
@@ -11186,9 +11192,16 @@
 	      shouldSwitch = false;
 	      x = rows[i].getElementsByTagName("TD")[2];
 	      y = rows[i + 1].getElementsByTagName("TD")[2];
-	      if (Number(x.innerHTML) > Number(y.innerHTML)) {
-	        shouldSwitch = true;
-	        break;
+	      if (sortOrder === 'ascend') {
+	        if (Number(x.innerHTML) > Number(y.innerHTML)) {
+	          shouldSwitch = true;
+	          break;
+	        }
+	      } else {
+	        if (Number(x.innerHTML) < Number(y.innerHTML)) {
+	          shouldSwitch = true;
+	          break;
+	        }
 	      }
 	    }
 	    if (shouldSwitch) {
@@ -11199,34 +11212,11 @@
 	}
 
 	function descending() {
-	  var table = void 0,
-	      rows = void 0,
-	      switching = void 0,
-	      i = void 0,
-	      x = void 0,
-	      y = void 0,
-	      shouldSwitch = void 0;
-	  table = document.getElementById("diary-foods-table");
-	  switching = true;
+	  sortCalories('descend');
+	}
 
-	  while (switching) {
-	    switching = false;
-	    rows = table.getElementsByTagName("TR");
-
-	    for (i = 1; i < rows.length - 1; i++) {
-	      shouldSwitch = false;
-	      x = rows[i].getElementsByTagName("TD")[2];
-	      y = rows[i + 1].getElementsByTagName("TD")[2];
-	      if (Number(x.innerHTML) < Number(y.innerHTML)) {
-	        shouldSwitch = true;
-	        break;
-	      }
-	    }
-	    if (shouldSwitch) {
-	      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-	      switching = true;
-	    }
-	  }
+	function ascending() {
+	  sortCalories('ascend');
 	}
 
 	function original() {
@@ -11243,8 +11233,8 @@
 	'use strict';
 
 	var $ = __webpack_require__(8);
-	var requests = __webpack_require__(9); //only for development, delete when done
-	var totals = __webpack_require__(19); //only for development, maybe
+	var requests = __webpack_require__(9);
+	var totals = __webpack_require__(19);
 	var calories = __webpack_require__(16);
 
 	function deleteMealItem() {
