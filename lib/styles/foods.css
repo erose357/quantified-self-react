@@ -39,3 +39,11 @@ div.food-search {
 .delete-button {
   border: none;
 }
+
+#msg1 {
+  display: none;
+}
+
+#msg2 {
+  display: none;
+}
