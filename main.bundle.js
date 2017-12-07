@@ -64,8 +64,8 @@
 	// require('./objects/addItemsToMeal')
 	// require('./objects/filterCalories')
 
-	__webpack_require__(22);
-	__webpack_require__(24);
+	__webpack_require__(23);
+	__webpack_require__(25);
 
 /***/ }),
 /* 1 */
@@ -465,7 +465,7 @@
 
 	function appendFoods(data) {
 	  for (var i = 0; i < data.length; i++) {
-	    $('.headings').after('<tr class="food' + data[i].id + '">\n          <td contenteditable="true">' + data[i].name + '</td>\n          <td contenteditable="true">' + data[i].calories + '</td>\n          <td class="delete-button"><button class="delete-food ' + data[i].id + '">-</button></td>\n        </tr>');
+	    $('.headings').after('<tr class="food ' + data[i].id + '">\n          <td contenteditable="true">' + data[i].name + '</td>\n          <td contenteditable="true">' + data[i].calories + '</td>\n          <td class="delete-button"><button class="delete-food ' + data[i].id + '">-</button></td>\n        </tr>');
 	  }
 	}
 
@@ -477,7 +477,7 @@
 
 	function appendFood(meal_object) {
 	  meal_object.foods.forEach(function (food) {
-	    $('.' + meal_object.name).after('<tr class="food' + food.id + ' foodLoad">\n          <td>' + food.name + '</td>\n          <td class="countCalories">' + food.calories + '</td>\n          <td class="delete-button"><button class="delete-food ' + food.id + '">-</button></td>\n          </tr>');
+	    $('.' + meal_object.name).after('<tr class="food' + food.id + ' meal' + meal_object.id + ' foodLoad">\n          <td>' + food.name + '</td>\n          <td class="countCalories">' + food.calories + '</td>\n          <td class="delete-button"><button class="delete-food ' + food.id + '">-</button></td>\n          </tr>');
 	  });
 	}
 
@@ -486,7 +486,7 @@
 	}
 
 	function removeFood(foodId) {
-	  $('.food' + foodId).remove();
+	  $('tr.food.' + foodId).remove();
 	}
 
 	module.exports = { appendFoods: appendFoods, appendFood: appendFood, appendFoodsDiary: appendFoodsDiary, errorLog: errorLog, removeFood: removeFood };
@@ -10939,6 +10939,7 @@
 	var addToMeal = __webpack_require__(17);
 	var getMeals = __webpack_require__(20);
 	var filterCalories = __webpack_require__(21);
+	var deleteMealItem = __webpack_require__(22);
 
 	$.fn.clicktoggle = function (a, b, c) {
 	    return this.each(function () {
@@ -10966,6 +10967,10 @@
 	    $('button.dinner').on('click', addToMeal.addToMeal);
 	    $('button.snack').on('click', addToMeal.addToMeal);
 	    $("#calorie-filter").clicktoggle(filterCalories.ascending, filterCalories.descending, filterCalories.original);
+	    $('#breakfast-table').on('click', '.delete-food', deleteMealItem.deleteMealItem);
+	    $('#lunch-table').on('click', '.delete-food', deleteMealItem.deleteMealItem);
+	    $('#snack-table').on('click', '.delete-food', deleteMealItem.deleteMealItem);
+	    $('#dinner-table').on('click', '.delete-food', deleteMealItem.deleteMealItem);
 	});
 
 /***/ }),
@@ -11022,7 +11027,7 @@
 	  document.getElementById(id).innerHTML = item.reduce(getSum);
 	}
 
-	module.exports = { totalCalories: totalCalories, remainingCalories: remainingCalories };
+	module.exports = { totalCalories: totalCalories, remainingCalories: remainingCalories, totalCalorieCount: totalCalorieCount, remainingCalorieCount: remainingCalorieCount };
 
 /***/ }),
 /* 17 */
@@ -11241,16 +11246,104 @@
 
 	'use strict';
 
+	var $ = __webpack_require__(8);
+	var requests = __webpack_require__(7);
+	var totals = __webpack_require__(19);
+	var calories = __webpack_require__(16);
+
+	function deleteMealItem() {
+	  var ids = getIds(this);
+	  return $.ajax({
+	    url: 'https://api-qs.herokuapp.com/api/v1/meals/' + ids.mealId + '/foods/' + ids.foodId,
+	    method: 'DELETE'
+	  }).then(function () {
+	    removeMealItem(ids);
+	    return ids;
+	  }).then(function (ids) {
+	    var meal = findTable(ids.mealId);
+	    var tableId = meal + '-table';
+	    var td = meal + '-total-cal';
+	    calories.totalCalorieCount(tableId, td);
+	    return { meal: meal, tableId: tableId, td: td };
+	  }).then(function (ids) {
+	    var remaining = '#' + ids.meal + '-remaining-cal';
+	    var total = '#' + ids.td;
+	    var cals = findCals(ids.meal);
+	    calories.remainingCalorieCount(remaining, total, cals);
+	  }).then(totals.loadTotals).catch(requests.errorLog);
+	}
+
+	function getIds(element) {
+	  var rawIds = void 0,
+	      mealId = void 0,
+	      foodId = void 0;
+	  rawIds = $(element).parents()[1].className.split(' ');
+	  mealId = diaryIds(rawIds[1]);
+	  foodId = diaryIds(rawIds[0]);
+	  return { foodId: foodId, mealId: mealId };
+	}
+
+	function diaryIds(string) {
+	  var rawArray = string.split(/(\D)/);
+	  return rawArray[rawArray.length - 1];
+	}
+
+	function removeMealItem(ids) {
+	  $('tr.food' + ids.foodId + '.meal' + ids.mealId).remove();
+	}
+
+	function findTable(id) {
+	  switch (id) {
+	    case "1":
+	      return 'breakfast';
+	      break;
+	    case "2":
+	      return 'snack';
+	      break;
+	    case "3":
+	      return 'lunch';
+	      break;
+	    case "4":
+	      return 'dinner';
+	      break;
+	  }
+	}
+
+	function findCals(meal) {
+	  switch (meal) {
+	    case 'breakfast':
+	      return 400;
+	      break;
+	    case 'lunch':
+	      return 600;
+	      break;
+	    case 'dinner':
+	      return 800;
+	      break;
+	    case 'snack':
+	      return 200;
+	      break;
+	  }
+	}
+
+	module.exports = { deleteMealItem: deleteMealItem };
+
+/***/ }),
+/* 23 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
 	__webpack_require__(10);
 	__webpack_require__(12);
 	__webpack_require__(11);
 	__webpack_require__(14);
-	__webpack_require__(23);
+	__webpack_require__(24);
 	__webpack_require__(20);
 	__webpack_require__(18);
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11267,7 +11360,7 @@
 	module.exports = { getSingleFood: getSingleFood };
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
