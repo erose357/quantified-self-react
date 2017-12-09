@@ -1,17 +1,109 @@
-table, th, td {
-  border: 1px solid black;
-  border-collapse: collapse;
+* {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 40px;
+}
+
+/*p {*/
+  /*font-family: 'Droid Serif';*/
+/*}*/
+
+.wrapper {
+  display: grid;
+  grid-template-columns: 40% 40%;
+  grid-gap: 10px;
+}
+
+.wrapper-index {
+  display: grid;
+  grid-template-columns: 80%;
+}
+
+.box {
+  border-radius: 5px;
+  padding: 20px;
 }
 
 h3 {
-  margin: 10px 0;
-}
-.diary-heading {
-  background-color: #c5c4c4;
+  /*font-family: 'Oswald';*/
+  font-weight: normal;
+  margin: 0 0 5px 50px;
+  text-align: left;
 }
 
-.headings-diary {
-  background-color: #c5c4c4;
+table {
+  border: none; 
+  border-collapse: collapse;
+  display: block;
+  font-family: sans-serif;
+  font-size: 75%;
+  padding: 0 50px;
+  width: 100%;
+}
+
+th {
+  background-color: rgb(196, 196, 196);
+  border: 1px solid black;
+  color: black;
+  font-weight: bold;
+  padding: 10px 15px;
+}
+
+th.blank {
+  background-color: white;
+  border: none;
+}
+
+th.name {
+  text-align: left;
+  width: 300px;
+}
+
+th.calories {
+  text-align: right;
+  width: 200px
+}
+
+th.calories {
+  text-align: right;
+  margin-right: none;
+}
+
+td {
+  background-color: rgb(255, 255, 255);
+  border: .5px solid black; 
+  padding: 2px 5px;
+}
+
+td.name {
+  text-align: left;
+  font-weight: normal;
+}
+
+td.calories {
+  text-align: right;
+  margin-right: none;
+}
+
+td.delete-button {
+  background-color: white;
+  border: none;
+  padding: 0px;
+}
+
+button.delete-food {
+  border: none;
+}
+
+button.food-button {
+  display: inline-block;
+  width: 100px;
+  margin: 2% 7.5%;
 }
 
 a.new-food-button {
@@ -23,11 +115,32 @@ a.new-food-button {
   font-size: 11px;
   font-family: sans-serif;
   font-weight: bold;
-  margin-bottom: 10px;
+  margin: 15px 50px 10px 50px;
   padding: 5px 20px;
   text-decoration: none;
 }
 
 .diary-food-search {
-  margin: 20px;
+  margin: 10px 20px;
+  padding: 0px 30px;
+}
+
+div.food-buttons {
+  padding: 0 20px;
+}
+
+div.food-buttons p {
+  padding: 5px 35px;
+}
+
+#msg1 {
+  display: none;
+}
+
+#msg2 {
+  display: none;
+}
+
+.material-icons.red{
+  color: #FF0000;
 }
