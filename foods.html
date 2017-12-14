@@ -2,40 +2,46 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="http://fonts.googleapis.com/css?family=Oswald:700|Droid+Serif:400,700italic" rel="stylesheet" type="text/css" />
   <title>Quantified Self - Manage Foods</title>
 </head>
 <body class="foods" id="foods-main">
   <h3 tabindex="0">Manage Foods</h3>
-  <div>
-    <form class="new-food-form">
-      <span tabindex="0" class="food-labels">Name</span><br>
-      <input type="text" name="food-name" size="40" class="food-form" aria-labelledby="foods-main"><br>
-      <span tabindex="0" class="error" id="msg1">Please add a name</span><br>
-      <span tabindex="0" class="food-labels">Calories</span><br>
-      <input type="text" name="food-calories" size="40" class="food-form" aria-labelledby="foods-main"><br>
-      <span tabindex="0" class="error" id="msg2">Please add a calorie amount</span><br>
-      <input type="submit" value="     Add Food     " class="food-button">
-    </form>
-  </div>
+  <div class="wrapper-index">
 
-  <br>
-  <br>
-  <br>
+    <div class="box">
+      <div>
+        <form class="new-food-form">
+          <span tabindex="0" class="food-labels">Name</span><br>
+          <input type="text" name="food-name" size="40" class="food-form" aria-labelledby="foods-main"><br>
+          <span tabindex="0" class="error" id="msg1">Please add a name</span><br>
+          <span tabindex="0" class="food-labels">Calories</span><br>
+          <input type="text" name="food-calories" size="40" class="food-form" aria-labelledby="foods-main"><br>
+          <span tabindex="0" class="error" id="msg2">Please add a calorie amount</span><br>
+          <input type="submit" value="     Add Food     " class="food-button">
+        </form>
+      </div>
+    </div>
 
-  <div class="food-search">
-    <form>
-      <span tabindex="0" class="food-labels">Filter by Name</span><br>
-      <input type="text" name="food-name" size="40" id="food-input" aria-label="foods-search">
-    </form>
-  </div>
+    <div class="box">
+      <div class="food-search">
+        <form>
+          <span tabindex="0" class="food-labels">Filter by Name</span><br>
+          <input type="text" name="food-name" size="40" id="food-input" aria-label="foods-search">
+        </form>
+      </div>
 
-  <div>
-    <table class="foods-table" id="foods-table">
-      <tr class="headings diary-heading">
-        <th tabindex="0">Name</th>
-        <th tabindex="0">Calories</th>
-      </tr>
-    </table>
+      <div>
+        <table class="foods-table" id="foods-table">
+          <tr class="headings diary-heading">
+            <th tabindex="0">Name</th>
+            <th tabindex="0">Calories</th>
+          </tr>
+        </table>
+      </div>
+    </div>
+
   </div>
 
   <script src="main.bundle.js"></script>
