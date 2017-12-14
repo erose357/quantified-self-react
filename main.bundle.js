@@ -10821,17 +10821,14 @@
 	var _foodResponses = __webpack_require__(7);
 
 	var $ = __webpack_require__(8);
-
-	var API = 'https://api-qs.herokuapp.com';
-
 	function getFoods() {
-	  return $.get("https://api-qs.herokuapp.com/api/v1/foods").done(function (data) {
+	  return $.get("https://qs-node-api.herokuapp.com/api/v1/foods").done(function (data) {
 	    (0, _foodResponses.appendFoods)(data);
 	  }).catch(_foodResponses.errorLog);
 	}
 
 	function getFoodsDiary() {
-	  return $.get("https://api-qs.herokuapp.com/api/v1/foods").done(function (data) {
+	  return $.get("https://qs-node-api.herokuapp.com/api/v1/foods").done(function (data) {
 	    (0, _foodResponses.appendFoodsDiary)(data);
 	  }).catch(_foodResponses.errorLog);
 	}
@@ -11298,11 +11295,11 @@
 	});
 	exports.createNewFood = createNewFood;
 	var $ = __webpack_require__(8);
-	var API = 'https://api-qs.herokuapp.com';
+	var API = 'https://qs-node-api.herokuapp.com';
 
 	function createNewFood() {
 	  var postName = $(".new-food-form input[name='food-name']").val();
-	  var postCalories = $(".new-food-form input[name='food-calories']").val();
+	  var postCalories = Number($(".new-food-form input[name='food-calories']").val());
 	  if (postName.length === 0) {
 	    event.preventDefault();
 	    $('#msg1').css("display", "block");
@@ -11339,7 +11336,7 @@
 	function deleteFood() {
 	  var foodId = getId(this);
 	  return $.ajax({
-	    url: 'https://api-qs.herokuapp.com/api/v1/foods/' + foodId,
+	    url: 'https://qs-node-api.herokuapp.com/api/v1/foods/' + foodId,
 	    method: 'DELETE'
 	  }).then(function () {
 	    (0, _foodResponses.removeFood)(foodId);
@@ -11370,8 +11367,8 @@
 	  var foodNameId = parent.children[0].innerHTML;
 	  var calorieId = parent.children[1].innerHTML;
 	  return $.ajax({
-	    url: 'https://api-qs.herokuapp.com/api/v1/foods/' + foodEditId,
-	    method: 'PATCH',
+	    url: 'https://qs-node-api.herokuapp.com/api/v1/foods/' + foodEditId,
+	    method: 'PUT',
 	    data: { food: { name: foodNameId, calories: calorieId } }
 	  }).done(function (data) {}).catch(_foodResponses.errorLog);
 	}
