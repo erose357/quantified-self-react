@@ -88,7 +88,7 @@
 
 
 	// module
-	exports.push([module.id, "table, th, td {\n  border: 1px solid black;\n  border-collapse: collapse;\n}\n\nbutton {\n  background-color: red;\n  border-radius: 75%;\n  color: black;\n  font-size: 15px;\n}\n\n.food-button {\n  background-color: DodgerBlue;\n  border: 1px solid black;\n  border-radius: 15px;\n  color: black;\n  font-family: sans-serif;\n  font-size: 11px;\n  font-weight: bold;\n  margin-left: 10%;\n  padding: 5px 20px;\n}\n\n.error {\n  color: red;\n  margin-left: 5%;\n  display: none;\n}\n\ndiv.food-search {\n  margin-bottom: 20px;\n}\n\n.foods-table {\n  border-right: 0px;\n  border-bottom: 0px;\n}\n.delete-button {\n  border: none;\n}\n\n#msg1 {\n  display: none;\n}\n\n#msg2 {\n  display: none;\n}\n", ""]);
+	exports.push([module.id, "/*table, th, td {*/\n  /*border: 1px solid black;*/\n  /*border-collapse: collapse;*/\n/*}*/\n\n/*.food-button {*/\n  /*background-color: DodgerBlue;*/\n  /*border: 1px solid black;*/\n  /*border-radius: 15px;*/\n  /*color: black;*/\n  /*font-family: sans-serif;*/\n  /*font-size: 11px;*/\n  /*font-weight: bold;*/\n  /*margin-left: 10%;*/\n  /*padding: 5px 20px;*/\n/*}*/\n\n/*.error {*/\n  /*color: red;*/\n  /*margin-left: 5%;*/\n  /*display: none;*/\n/*}*/\n\n/*div.food-search {*/\n  /*margin-bottom: 20px;*/\n/*}*/\n\n/*.foods-table {*/\n  /*border-right: 0px;*/\n  /*border-bottom: 0px;*/\n/*}*/\n/*.delete-button {*/\n  /*border: none;*/\n/*}*/\n\n", ""]);
 
 	// exports
 
@@ -436,7 +436,7 @@
 
 
 	// module
-	exports.push([module.id, "table, th, td {\n  border: 1px solid black;\n  border-collapse: collapse;\n}\n\nh3 {\n  margin: 10px 0;\n}\n.diary-heading {\n  background-color: #c5c4c4;\n}\n\n.headings-diary {\n  background-color: #c5c4c4;\n}\n\na.new-food-button {\n  background-color: DodgerBlue;\n  border: 1px solid black;\n  border-radius: 15px;\n  color: black;\n  display: inline-block;\n  font-size: 11px;\n  font-family: sans-serif;\n  font-weight: bold;\n  margin-bottom: 10px;\n  padding: 5px 20px;\n  text-decoration: none;\n}\n\n.diary-food-search {\n  margin: 20px;\n}\n", ""]);
+	exports.push([module.id, "* {\n  font-family: sans-serif;\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n}\n\nbody {\n  margin: 40px;\n}\n\n/*p {*/\n  /*font-family: 'Droid Serif';*/\n/*}*/\n\n.wrapper {\n  display: grid;\n  grid-template-columns: 40% 40%;\n  grid-gap: 10px;\n}\n\n.wrapper-index {\n  display: grid;\n  grid-template-columns: 80%;\n}\n\n.box {\n  border-radius: 5px;\n  padding: 20px;\n}\n\nh3 {\n  /*font-family: 'Oswald';*/\n  font-weight: normal;\n  margin: 0 0 5px 50px;\n  text-align: left;\n}\n\ntable {\n  border: none; \n  border-collapse: collapse;\n  display: block;\n  font-family: sans-serif;\n  font-size: 75%;\n  padding: 0 50px;\n  width: 100%;\n}\n\nth {\n  background-color: rgb(196, 196, 196);\n  border: 1px solid black;\n  color: black;\n  font-weight: bold;\n  padding: 10px 15px;\n}\n\nth.blank {\n  background-color: white;\n  border: none;\n}\n\nth.name {\n  text-align: left;\n  width: 300px;\n}\n\nth.calories {\n  text-align: right;\n  width: 200px\n}\n\nth.calories {\n  text-align: right;\n  margin-right: none;\n}\n\ntd {\n  background-color: rgb(255, 255, 255);\n  border: .5px solid black; \n  padding: 2px 5px;\n}\n\ntd.name {\n  text-align: left;\n  font-weight: normal;\n}\n\ntd.calories {\n  text-align: right;\n  margin-right: none;\n}\n\ntd.delete-button {\n  background-color: white;\n  border: none;\n  padding: 0px;\n}\n\nbutton.delete-food {\n  border: none;\n}\n\nbutton.food-button {\n  display: inline-block;\n  width: 100px;\n  margin: 2% 7.5%;\n}\n\na.new-food-button {\n  background-color: DodgerBlue;\n  border: 1px solid black;\n  border-radius: 15px;\n  color: black;\n  display: inline-block;\n  font-size: 11px;\n  font-family: sans-serif;\n  font-weight: bold;\n  margin: 15px 50px 10px 50px;\n  padding: 5px 20px;\n  text-decoration: none;\n}\n\n.diary-food-search {\n  margin: 10px 20px;\n  padding: 0px 30px;\n}\n\ndiv.food-buttons {\n  padding: 0 20px;\n}\n\ndiv.food-buttons p {\n  padding: 5px 35px;\n}\n\n#msg1 {\n  display: none;\n}\n\n#msg2 {\n  display: none;\n}\n\n.material-icons.red{\n  color: #FF0000;\n}\n", ""]);
 
 	// exports
 
@@ -459,19 +459,19 @@
 
 	function appendFoods(data) {
 	  for (var i = 0; i < data.length; i++) {
-	    $('.headings').after('<tr class="food ' + data[i].id + '">\n          <td tabindex="0" contenteditable="true">' + data[i].name + '</td>\n          <td tabindex="0" contenteditable="true">' + data[i].calories + '</td>\n          <td class="delete-button"><button class="delete-food ' + data[i].id + '">-</button></td>\n        </tr>');
+	    $('.headings').after('<tr class="food ' + data[i].id + '">\n          <td tabindex="0" contenteditable="true">' + data[i].name + '</td>\n          <td tabindex="0" contenteditable="true">' + data[i].calories + '</td>\n          <td class="delete-button">\n            <button class="delete-food ' + data[i].id + '">\n              <i class="material-icons md-18 red">remove_circle_outline</i>\n            </button>\n          </td>\n        </tr>');
 	  }
 	}
 
 	function appendFoodsDiary(data) {
 	  for (var i = 0; i < data.length; i++) {
-	    $('.headings-diary').after('<tr class="food ' + data[i].id + '">\n          <td class="food-checkbox"><input class="' + data[i].id + '" type="checkbox" name="food-checkbox" aria-labelledby="foods-table"></td>\n          <td tabindex="0">' + data[i].name + '</td>\n          <td tabindex="0">' + data[i].calories + '</td>\n        </tr>');
+	    $('.headings-diary').after('<tr class="food ' + data[i].id + '">\n          <td class="food-checkbox"><input class="' + data[i].id + '" type="checkbox" name="food-checkbox" aria-labelledby="foods-table"></td>\n          <td tabindex="0" class="name">' + data[i].name + '</td>\n          <td tabindex="0" class="calories">' + data[i].calories + '</td>\n        </tr>');
 	  }
 	}
 
 	function appendFood(meal_object) {
 	  meal_object.foods.forEach(function (food) {
-	    $('.' + meal_object.name).after('<tr class="food' + food.id + ' meal' + meal_object.id + ' foodLoad">\n          <td tabindex="0">' + food.name + '</td>\n          <td tabindex="0" class="countCalories">' + food.calories + '</td>\n          <td class="delete-button"><button class="delete-food ' + food.id + '">-</button></td>\n          </tr>');
+	    $('.' + meal_object.name).after('<tr class="food' + food.id + ' meal' + meal_object.id + ' foodLoad">\n          <td tabindex="0" class="name">' + food.name + '</td>\n          <td tabindex="0" class="countCalories calories">' + food.calories + '</td>\n          <td class="delete-button">\n            <button class="delete-food ' + food.id + '">\n              <i class="material-icons md-18 red">remove_circle_outline</i>\n            </button>\n          </td>\n          </tr>');
 	  });
 	}
 
