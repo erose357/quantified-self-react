@@ -31,7 +31,7 @@ One person from your project will set up the repository. That one person should 
 6. Install the dependencies of the starter kit
 
   ```shell
-  npm install
+gi  npm install
   ```
 
 7. Add, commit, and push up to your repository
