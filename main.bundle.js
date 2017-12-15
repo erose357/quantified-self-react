@@ -10880,12 +10880,14 @@
 	}
 
 	function postChecked(checked, mealId) {
-	  Promise.all(checked.map(function (item) {
+	  return Promise.all(checked.map(function (item) {
 	    var itemId = item.className;
-	    (0, _postMealItems.postMealItems)(itemId, mealId);
+	    return (0, _postMealItems.postMealItems)(itemId, mealId);
 	  })).then(function () {
 	    uncheck(checked);
 	    (0, _getMeals.loadMeal)(mealId);
+	  }).catch(function (err) {
+	    return console.log(err);
 	  });
 	}
 
