@@ -429,8 +429,10 @@
 	}
 
 	function appendFood(meal_object) {
+	  var i = 0;
 	  meal_object.foods.forEach(function (food) {
-	    $('.' + meal_object.name).after('<tr class="food' + food.id + ' meal' + meal_object.id + ' foodLoad">\n          <td tabindex="0" class="name">' + food.name + '</td>\n          <td tabindex="0" class="countCalories calories">' + food.calories + '</td>\n          <td class="delete-button">\n            <button class="delete-food ' + food.id + '">\n              <i class="material-icons md-18 red">remove_circle_outline</i>\n            </button>\n          </td>\n          </tr>');
+	    $('.' + meal_object.name).after('<tr class="' + i + ' food' + food.id + ' meal' + meal_object.id + ' foodLoad">\n          <td tabindex="0" class="name">' + food.name + '</td>\n          <td tabindex="0" class="countCalories calories">' + food.calories + '</td>\n          <td class="delete-button">\n            <button class="delete-food ' + food.id + '">\n              <i class="material-icons md-18 red">remove_circle_outline</i>\n            </button>\n          </td>\n          </tr>');
+	    i++;
 	  });
 	}
 
@@ -10713,15 +10715,15 @@
 
 	var _addItemsToMeal = __webpack_require__(10);
 
-	var _getMeals = __webpack_require__(12);
+	var _getMeals = __webpack_require__(13);
 
-	var _filterCalories = __webpack_require__(15);
+	var _filterCalories = __webpack_require__(16);
 
-	var _deleteMealItem = __webpack_require__(16);
+	var _deleteMealItem = __webpack_require__(17);
 
-	var _postFood = __webpack_require__(17);
+	var _postFood = __webpack_require__(18);
 
-	var _deleteFood = __webpack_require__(18);
+	var _deleteFood = __webpack_require__(12);
 
 	var _editFoods = __webpack_require__(19);
 
@@ -10866,24 +10868,24 @@
 
 	var _postMealItems = __webpack_require__(11);
 
-	var _foodResponses = __webpack_require__(5);
+	var _deleteFood = __webpack_require__(12);
 
-	var _getMeals = __webpack_require__(12);
+	var _getMeals = __webpack_require__(13);
 
 	var $ = __webpack_require__(6);
 	function addToMeal() {
-	  var meal = (0, _foodResponses.getId)(event.currentTarget);
-	  var mealId = getMealId((0, _foodResponses.getId)(event.currentTarget));
+	  var mealId = getMealId((0, _deleteFood.getId)(event.currentTarget));
 	  var checked = $(':checked').get();
 	  postChecked(checked, mealId);
-	  uncheck(checked);
-	  (0, _getMeals.loadMeal)(mealId);
 	}
 
 	function postChecked(checked, mealId) {
-	  checked.forEach(function (item) {
+	  Promise.all(checked.map(function (item) {
 	    var itemId = item.className;
 	    (0, _postMealItems.postMealItems)(itemId, mealId);
+	  })).then(function () {
+	    uncheck(checked);
+	    (0, _getMeals.loadMeal)(mealId);
 	  });
 	}
 
@@ -10926,7 +10928,7 @@
 	var $ = __webpack_require__(6);
 	function postMealItems(itemId, meal) {
 	  return $.ajax({
-	    url: 'https://api-qs.herokuapp.com/api/v1/meals/' + meal + '/foods/' + itemId,
+	    url: 'https://qs-node-api.herokuapp.com/api/v1/meals/' + meal + '/foods/' + itemId,
 	    method: 'POST'
 	  }).catch(_foodResponses.errorLog);
 	}
@@ -10940,18 +10942,47 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	exports.deleteFood = deleteFood;
+	exports.getId = getId;
+
+	var _foodResponses = __webpack_require__(5);
+
+	var $ = __webpack_require__(6);
+	function deleteFood() {
+	  var foodId = getId(this);
+	  return $.ajax({
+	    url: 'https://qs-node-api.herokuapp.com/api/v1/foods/' + foodId,
+	    method: 'DELETE'
+	  }).then(function () {
+	    (0, _foodResponses.removeFood)(foodId);
+	  }).catch(_foodResponses.errorLog);
+	}
+
+	function getId(id) {
+	  return id.className.split(' ')[1];
+	}
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	exports.loadMeals = loadMeals;
 	exports.loadMeal = loadMeal;
 
 	var _foodResponses = __webpack_require__(5);
 
-	var _diaryCalorieCounts = __webpack_require__(13);
+	var _diaryCalorieCounts = __webpack_require__(14);
 
-	var _totalsTable = __webpack_require__(14);
+	var _totalsTable = __webpack_require__(15);
 
 	var $ = __webpack_require__(6);
 	function loadMeals() {
-	  return $.get("https://api-qs.herokuapp.com/api/v1/meals").done(function (data) {
+	  return $.get("https://qs-node-api.herokuapp.com/api/v1/meals").done(function (data) {
 	    data.forEach(function (mealObject) {
 	      return (0, _foodResponses.appendFood)(mealObject);
 	    });
@@ -10959,12 +10990,12 @@
 	}
 
 	function loadMeal(mealId) {
-	  return $.get('https://api-qs.herokuapp.com/api/v1/meals/' + mealId + '/foods').done(function (data) {
-	    var table = document.getElementById(data.name.toLowerCase() + '-table');
+	  return $.get('https://qs-node-api.herokuapp.com/api/v1/meals/' + mealId + '/foods').done(function (data) {
+	    var table = document.getElementById(data[0].name.toLowerCase() + '-table');
 	    removeMealRows(table);
 	    return data;
 	  }).then(function (data) {
-	    (0, _foodResponses.appendFood)(data);
+	    (0, _foodResponses.appendFood)(data[0]);
 	  }).then(_diaryCalorieCounts.totalCalories).then(_diaryCalorieCounts.remainingCalories).then(_totalsTable.loadTotals).catch(_foodResponses.errorLog);
 	}
 
@@ -10976,7 +11007,7 @@
 	}
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11037,7 +11068,7 @@
 	}
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11082,7 +11113,7 @@
 	}
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11151,7 +11182,7 @@
 	}
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11163,15 +11194,15 @@
 
 	var _foodResponses = __webpack_require__(5);
 
-	var _diaryCalorieCounts = __webpack_require__(13);
+	var _diaryCalorieCounts = __webpack_require__(14);
 
-	var _totalsTable = __webpack_require__(14);
+	var _totalsTable = __webpack_require__(15);
 
 	var $ = __webpack_require__(6);
 	function deleteMealItem() {
 	  var ids = getIds(this);
 	  return $.ajax({
-	    url: 'https://api-qs.herokuapp.com/api/v1/meals/' + ids.mealId + '/foods/' + ids.foodId,
+	    url: 'https://qs-node-api.herokuapp.com/api/v1/meals/' + ids.mealId + '/foods/' + ids.foodId,
 	    method: 'DELETE'
 	  }).then(function () {
 	    removeMealItem(ids);
@@ -11192,12 +11223,14 @@
 
 	function getIds(element) {
 	  var rawIds = void 0,
+	      rowId = void 0,
 	      mealId = void 0,
 	      foodId = void 0;
 	  rawIds = $(element).parents()[1].className.split(' ');
-	  mealId = diaryIds(rawIds[1]);
-	  foodId = diaryIds(rawIds[0]);
-	  return { foodId: foodId, mealId: mealId };
+	  rowId = rawIds[0];
+	  mealId = diaryIds(rawIds[2]);
+	  foodId = diaryIds(rawIds[1]);
+	  return { foodId: foodId, mealId: mealId, rowId: rowId };
 	}
 
 	function diaryIds(string) {
@@ -11206,7 +11239,7 @@
 	}
 
 	function removeMealItem(ids) {
-	  $('tr.food' + ids.foodId + '.meal' + ids.mealId).remove();
+	  $('tr.' + ids.rowId + '.food' + ids.foodId + '.meal' + ids.mealId).remove();
 	}
 
 	function findTable(id) {
@@ -11244,7 +11277,7 @@
 	}
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11275,35 +11308,6 @@
 	      $('#msg2').css("display", "none");
 	    });
 	  }
-	}
-
-/***/ }),
-/* 18 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.deleteFood = deleteFood;
-	exports.getId = getId;
-
-	var _foodResponses = __webpack_require__(5);
-
-	var $ = __webpack_require__(6);
-	function deleteFood() {
-	  var foodId = getId(this);
-	  return $.ajax({
-	    url: 'https://qs-node-api.herokuapp.com/api/v1/foods/' + foodId,
-	    method: 'DELETE'
-	  }).then(function () {
-	    (0, _foodResponses.removeFood)(foodId);
-	  }).catch(_foodResponses.errorLog);
-	}
-
-	function getId(id) {
-	  return id.className.split(' ')[1];
 	}
 
 /***/ }),
@@ -11339,10 +11343,10 @@
 	'use strict';
 
 	__webpack_require__(8);
-	__webpack_require__(18);
-	__webpack_require__(17);
-	__webpack_require__(19);
 	__webpack_require__(12);
+	__webpack_require__(18);
+	__webpack_require__(19);
+	__webpack_require__(13);
 	__webpack_require__(11);
 
 /***/ }),
@@ -11352,10 +11356,10 @@
 	'use strict';
 
 	__webpack_require__(9);
-	__webpack_require__(14);
-	__webpack_require__(13);
-	__webpack_require__(10);
 	__webpack_require__(15);
+	__webpack_require__(14);
+	__webpack_require__(10);
+	__webpack_require__(16);
 
 /***/ })
 /******/ ]);
