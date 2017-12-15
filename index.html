@@ -8,7 +8,13 @@
 </head>
 
 <body class="diary">
-  <h2 tabindex="0">Main Diary</h2>
+
+  <ul>
+    <li><h1 class="nav">Quantified Self</h1></li>
+    <li><button id="nav" class="nav"><a href="foods.html">Visit Foods</a></button></li>
+  </ul>
+
+  <h2 id="main-head" tabindex="0">Main Diary</h2>
   <div class="wrapper">
 
     <article class="box">
@@ -87,7 +93,7 @@
     <div class="box">
       <h3 tabindex="0" id="foods-table">Foods</h3>
       <a href="foods.html" class="new-food-button">Create New</a>
-      <p>Add Selected To</p>
+      <p id="align" tabindex="0">Add Selected To</p>
       <button class="food-button breakfast">Breakfast</button>
       <button class="food-button lunch">Lunch</button>
       <button class="food-button dinner">Dinner</button>
