@@ -54,23 +54,19 @@
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _Button = __webpack_require__(27);
+	var _IndexFoodsTable = __webpack_require__(27);
 
-	var _Button2 = _interopRequireDefault(_Button);
-
-	var _ButtonGroup = __webpack_require__(28);
-
-	var _ButtonGroup2 = _interopRequireDefault(_ButtonGroup);
+	var _IndexFoodsTable2 = _interopRequireDefault(_IndexFoodsTable);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	__webpack_require__(29);
-	__webpack_require__(33);
-	__webpack_require__(35);
-	__webpack_require__(48);
-	__webpack_require__(49);
+	__webpack_require__(32);
+	__webpack_require__(36);
+	__webpack_require__(38);
+	__webpack_require__(51);
+	__webpack_require__(52);
 
-	_reactDom2.default.render(_react2.default.createElement(_ButtonGroup2.default, null), document.getElementById('root'));
+	_reactDom2.default.render(_react2.default.createElement(_IndexFoodsTable2.default, null), document.getElementById('root'));
 
 /***/ }),
 /* 1 */
@@ -18229,6 +18225,128 @@
 /* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _ButtonGroup = __webpack_require__(28);
+
+	var _ButtonGroup2 = _interopRequireDefault(_ButtonGroup);
+
+	var _TableHeaderRow = __webpack_require__(30);
+
+	var _TableHeaderRow2 = _interopRequireDefault(_TableHeaderRow);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var IndexFoodsTable = function (_Component) {
+	  _inherits(IndexFoodsTable, _Component);
+
+	  function IndexFoodsTable() {
+	    _classCallCheck(this, IndexFoodsTable);
+
+	    return _possibleConstructorReturn(this, (IndexFoodsTable.__proto__ || Object.getPrototypeOf(IndexFoodsTable)).apply(this, arguments));
+	  }
+
+	  _createClass(IndexFoodsTable, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(_ButtonGroup2.default, null),
+	        _react2.default.createElement(
+	          'table',
+	          { className: 'diary foods-table', id: 'diary-foods-table' },
+	          _react2.default.createElement(
+	            'tbody',
+	            null,
+	            _react2.default.createElement(_TableHeaderRow2.default, { cl: 'headings-diary' })
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return IndexFoodsTable;
+	}(_react.Component);
+
+	exports.default = IndexFoodsTable;
+
+/***/ }),
+/* 28 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Button = __webpack_require__(29);
+
+	var _Button2 = _interopRequireDefault(_Button);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var ButtonGroup = function (_Component) {
+	  _inherits(ButtonGroup, _Component);
+
+	  function ButtonGroup() {
+	    _classCallCheck(this, ButtonGroup);
+
+	    return _possibleConstructorReturn(this, (ButtonGroup.__proto__ || Object.getPrototypeOf(ButtonGroup)).apply(this, arguments));
+	  }
+
+	  _createClass(ButtonGroup, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(_Button2.default, { text: 'breakfast' }),
+	        _react2.default.createElement(_Button2.default, { text: 'lunch' }),
+	        _react2.default.createElement(_Button2.default, { text: 'dinner' }),
+	        _react2.default.createElement(_Button2.default, { text: 'snack' })
+	      );
+	    }
+	  }]);
+
+	  return ButtonGroup;
+	}(_react.Component);
+
+	exports.default = ButtonGroup;
+
+/***/ }),
+/* 29 */
+/***/ (function(module, exports, __webpack_require__) {
+
 	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
@@ -18285,7 +18403,7 @@
 	exports.default = Button;
 
 /***/ }),
-/* 28 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -18300,9 +18418,9 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Button = __webpack_require__(27);
+	var _TableHeader = __webpack_require__(31);
 
-	var _Button2 = _interopRequireDefault(_Button);
+	var _TableHeader2 = _interopRequireDefault(_TableHeader);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -18312,45 +18430,93 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var ButtonGroup = function (_Component) {
-	  _inherits(ButtonGroup, _Component);
+	var TableHeaderRow = function (_Component) {
+	  _inherits(TableHeaderRow, _Component);
 
-	  function ButtonGroup() {
-	    _classCallCheck(this, ButtonGroup);
+	  function TableHeaderRow() {
+	    _classCallCheck(this, TableHeaderRow);
 
-	    return _possibleConstructorReturn(this, (ButtonGroup.__proto__ || Object.getPrototypeOf(ButtonGroup)).apply(this, arguments));
+	    return _possibleConstructorReturn(this, (TableHeaderRow.__proto__ || Object.getPrototypeOf(TableHeaderRow)).apply(this, arguments));
 	  }
 
-	  _createClass(ButtonGroup, [{
+	  _createClass(TableHeaderRow, [{
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(_Button2.default, { text: 'breakfast' }),
-	        _react2.default.createElement(_Button2.default, { text: 'lunch' }),
-	        _react2.default.createElement(_Button2.default, { text: 'dinner' }),
-	        _react2.default.createElement(_Button2.default, { text: 'snack' })
+	        'tr',
+	        { className: this.props.cl },
+	        _react2.default.createElement(_TableHeader2.default, { cl: 'blank' }),
+	        _react2.default.createElement(_TableHeader2.default, { name: 'Name', cl: 'name' }),
+	        _react2.default.createElement(_TableHeader2.default, { name: 'Calories', id: 'calorie-filter', cl: 'Calories' })
 	      );
 	    }
 	  }]);
 
-	  return ButtonGroup;
+	  return TableHeaderRow;
 	}(_react.Component);
 
-	exports.default = ButtonGroup;
+	exports.default = TableHeaderRow;
 
 /***/ }),
-/* 29 */
+/* 31 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var TableHeader = function (_Component) {
+	  _inherits(TableHeader, _Component);
+
+	  function TableHeader() {
+	    _classCallCheck(this, TableHeader);
+
+	    return _possibleConstructorReturn(this, (TableHeader.__proto__ || Object.getPrototypeOf(TableHeader)).apply(this, arguments));
+	  }
+
+	  _createClass(TableHeader, [{
+	    key: "render",
+	    value: function render() {
+	      return _react2.default.createElement(
+	        "th",
+	        { className: this.props.cl, id: this.props.id, tabIndex: "0" },
+	        this.props.name
+	      );
+	    }
+	  }]);
+
+	  return TableHeader;
+	}(_react.Component);
+
+	exports.default = TableHeader;
+
+/***/ }),
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(30);
+	var content = __webpack_require__(33);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(32)(content, {});
+	var update = __webpack_require__(35)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -18367,10 +18533,10 @@
 	}
 
 /***/ }),
-/* 30 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(31)();
+	exports = module.exports = __webpack_require__(34)();
 	// imports
 
 
@@ -18381,7 +18547,7 @@
 
 
 /***/ }),
-/* 31 */
+/* 34 */
 /***/ (function(module, exports) {
 
 	/*
@@ -18437,7 +18603,7 @@
 
 
 /***/ }),
-/* 32 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/*
@@ -18689,7 +18855,7 @@
 
 
 /***/ }),
-/* 33 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -18702,7 +18868,7 @@
 	exports.appendFood = appendFood;
 	exports.errorLog = errorLog;
 	exports.removeFood = removeFood;
-	var $ = __webpack_require__(34);
+	var $ = __webpack_require__(37);
 
 	function appendFoods(data) {
 	  for (var i = 0; i < data.length; i++) {
@@ -18733,7 +18899,7 @@
 	}
 
 /***/ }),
-/* 34 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -28992,30 +29158,30 @@
 
 
 /***/ }),
-/* 35 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var _getAllFoods = __webpack_require__(36);
+	var _getAllFoods = __webpack_require__(39);
 
-	var _foodsTableFilter = __webpack_require__(37);
+	var _foodsTableFilter = __webpack_require__(40);
 
-	var _addItemsToMeal = __webpack_require__(38);
+	var _addItemsToMeal = __webpack_require__(41);
 
-	var _getMeals = __webpack_require__(41);
+	var _getMeals = __webpack_require__(44);
 
-	var _filterCalories = __webpack_require__(44);
+	var _filterCalories = __webpack_require__(47);
 
-	var _deleteMealItem = __webpack_require__(45);
+	var _deleteMealItem = __webpack_require__(48);
 
-	var _postFood = __webpack_require__(46);
+	var _postFood = __webpack_require__(49);
 
-	var _deleteFood = __webpack_require__(40);
+	var _deleteFood = __webpack_require__(43);
 
-	var _editFoods = __webpack_require__(47);
+	var _editFoods = __webpack_require__(50);
 
-	var $ = __webpack_require__(34);
+	var $ = __webpack_require__(37);
 
 
 	$.fn.clicktoggle = function (a, b, c) {
@@ -29056,7 +29222,7 @@
 	});
 
 /***/ }),
-/* 36 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29067,9 +29233,9 @@
 	exports.getFoods = getFoods;
 	exports.getFoodsDiary = getFoodsDiary;
 
-	var _foodResponses = __webpack_require__(33);
+	var _foodResponses = __webpack_require__(36);
 
-	var $ = __webpack_require__(34);
+	var $ = __webpack_require__(37);
 	function getFoods() {
 	  return $.get("https://qs-node-api.herokuapp.com/api/v1/foods").done(function (data) {
 	    (0, _foodResponses.appendFoods)(data);
@@ -29083,7 +29249,7 @@
 	}
 
 /***/ }),
-/* 37 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29093,7 +29259,7 @@
 	});
 	exports.filterFoods = filterFoods;
 	exports.filterDiaryFoods = filterDiaryFoods;
-	var $ = __webpack_require__(34);
+	var $ = __webpack_require__(37);
 
 	function filterFoods() {
 	  var input = void 0,
@@ -29144,7 +29310,7 @@
 	}
 
 /***/ }),
-/* 38 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29154,13 +29320,13 @@
 	});
 	exports.addToMeal = addToMeal;
 
-	var _postMealItems = __webpack_require__(39);
+	var _postMealItems = __webpack_require__(42);
 
-	var _deleteFood = __webpack_require__(40);
+	var _deleteFood = __webpack_require__(43);
 
-	var _getMeals = __webpack_require__(41);
+	var _getMeals = __webpack_require__(44);
 
-	var $ = __webpack_require__(34);
+	var $ = __webpack_require__(37);
 	function addToMeal() {
 	  var mealId = getMealId((0, _deleteFood.getId)(event.currentTarget));
 	  var checked = $(':checked').get();
@@ -29203,7 +29369,7 @@
 	}
 
 /***/ }),
-/* 39 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29213,9 +29379,9 @@
 	});
 	exports.postMealItems = postMealItems;
 
-	var _foodResponses = __webpack_require__(33);
+	var _foodResponses = __webpack_require__(36);
 
-	var $ = __webpack_require__(34);
+	var $ = __webpack_require__(37);
 	function postMealItems(itemId, meal) {
 	  return $.ajax({
 	    url: 'https://qs-node-api.herokuapp.com/api/v1/meals/' + meal + '/foods/' + itemId,
@@ -29224,7 +29390,7 @@
 	}
 
 /***/ }),
-/* 40 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29235,9 +29401,9 @@
 	exports.deleteFood = deleteFood;
 	exports.getId = getId;
 
-	var _foodResponses = __webpack_require__(33);
+	var _foodResponses = __webpack_require__(36);
 
-	var $ = __webpack_require__(34);
+	var $ = __webpack_require__(37);
 	function deleteFood() {
 	  var foodId = getId(this);
 	  return $.ajax({
@@ -29253,7 +29419,7 @@
 	}
 
 /***/ }),
-/* 41 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29264,13 +29430,13 @@
 	exports.loadMeals = loadMeals;
 	exports.loadMeal = loadMeal;
 
-	var _foodResponses = __webpack_require__(33);
+	var _foodResponses = __webpack_require__(36);
 
-	var _diaryCalorieCounts = __webpack_require__(42);
+	var _diaryCalorieCounts = __webpack_require__(45);
 
-	var _totalsTable = __webpack_require__(43);
+	var _totalsTable = __webpack_require__(46);
 
-	var $ = __webpack_require__(34);
+	var $ = __webpack_require__(37);
 	function loadMeals() {
 	  return $.get("https://qs-node-api.herokuapp.com/api/v1/meals").done(function (data) {
 	    data.forEach(function (mealObject) {
@@ -29297,7 +29463,7 @@
 	}
 
 /***/ }),
-/* 42 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29309,7 +29475,7 @@
 	exports.remainingCalories = remainingCalories;
 	exports.remainingCalorieCount = remainingCalorieCount;
 	exports.totalCalorieCount = totalCalorieCount;
-	var $ = __webpack_require__(34);
+	var $ = __webpack_require__(37);
 
 	function totalCalories() {
 	  totalCalorieCount('breakfast-table', 'breakfast-total-cal');
@@ -29358,7 +29524,7 @@
 	}
 
 /***/ }),
-/* 43 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29367,7 +29533,7 @@
 	  value: true
 	});
 	exports.loadTotals = loadTotals;
-	var $ = __webpack_require__(34);
+	var $ = __webpack_require__(37);
 
 	function loadTotals() {
 	  var x = document.getElementsByClassName('total-cals');
@@ -29403,7 +29569,7 @@
 	}
 
 /***/ }),
-/* 44 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29415,9 +29581,9 @@
 	exports.ascending = ascending;
 	exports.original = original;
 
-	var _getAllFoods = __webpack_require__(36);
+	var _getAllFoods = __webpack_require__(39);
 
-	var $ = __webpack_require__(34);
+	var $ = __webpack_require__(37);
 
 
 	function sortCalories(sortOrder) {
@@ -29472,7 +29638,7 @@
 	}
 
 /***/ }),
-/* 45 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29482,13 +29648,13 @@
 	});
 	exports.deleteMealItem = deleteMealItem;
 
-	var _foodResponses = __webpack_require__(33);
+	var _foodResponses = __webpack_require__(36);
 
-	var _diaryCalorieCounts = __webpack_require__(42);
+	var _diaryCalorieCounts = __webpack_require__(45);
 
-	var _totalsTable = __webpack_require__(43);
+	var _totalsTable = __webpack_require__(46);
 
-	var $ = __webpack_require__(34);
+	var $ = __webpack_require__(37);
 	function deleteMealItem() {
 	  var ids = getIds(this);
 	  return $.ajax({
@@ -29567,7 +29733,7 @@
 	}
 
 /***/ }),
-/* 46 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29576,7 +29742,7 @@
 	  value: true
 	});
 	exports.createNewFood = createNewFood;
-	var $ = __webpack_require__(34);
+	var $ = __webpack_require__(37);
 	var API = 'https://qs-node-api.herokuapp.com';
 
 	function createNewFood() {
@@ -29601,7 +29767,7 @@
 	}
 
 /***/ }),
-/* 47 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29611,9 +29777,9 @@
 	});
 	exports.saveData = saveData;
 
-	var _foodResponses = __webpack_require__(33);
+	var _foodResponses = __webpack_require__(36);
 
-	var $ = __webpack_require__(34);
+	var $ = __webpack_require__(37);
 	function saveData() {
 	  var parent = this.parentNode;
 	  var foodEditId = parent.className.slice(4);
@@ -29627,29 +29793,29 @@
 	}
 
 /***/ }),
-/* 48 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(36);
-	__webpack_require__(40);
-	__webpack_require__(46);
-	__webpack_require__(47);
-	__webpack_require__(41);
 	__webpack_require__(39);
+	__webpack_require__(43);
+	__webpack_require__(49);
+	__webpack_require__(50);
+	__webpack_require__(44);
+	__webpack_require__(42);
 
 /***/ }),
-/* 49 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(37);
-	__webpack_require__(43);
-	__webpack_require__(42);
-	__webpack_require__(38);
-	__webpack_require__(44);
+	__webpack_require__(40);
+	__webpack_require__(46);
+	__webpack_require__(45);
+	__webpack_require__(41);
+	__webpack_require__(47);
 
 /***/ })
 /******/ ]);
